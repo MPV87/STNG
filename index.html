@@ -4,19 +4,116 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seite im Aufbau</title>
+
   <style>
-    body{margin:0;display:grid;place-items:center;min-height:100vh;font-family:system-ui;background:#fff;}
-    .wrap{text-align:center;padding:24px;}
-    img{max-width:min(700px,90vw);height:auto;}
-    h1{font-size:1.6rem;margin:16px 0 6px;}
-    p{color:#666;margin:0;}
+    html, body {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      background: #000;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Fullscreen image */
+    .bg {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+    }
+
+    /* Subtle dark fade so overlay is readable */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(transparent 55%, rgba(0,0,0,0.55) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Floating contact pill */
+    .contact {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: rgba(10,10,10,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .contact:hover {
+      transform: translateY(-2px);
+      background: rgba(20,20,20,0.85);
+      border-color: rgba(255,255,255,0.22);
+    }
+
+    /* Pulse dot */
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7CFF9E;
+      box-shadow: 0 0 10px rgba(124,255,158,0.9);
+      animation: pulse 1.6s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: .9; }
+      50% { transform: scale(1.45); opacity: .55; }
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+    .title {
+      font-size: 0.95rem;
+      font-weight: 650;
+    }
+    .subtitle {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 520px) {
+      .contact {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        bottom: 14px;
+      }
+      .contact:hover {
+        transform: translateX(-50%) translateY(-2px);
+      }
+    }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <img src="im-aufbau.jpg" alt="Seite im Aufbau">
-    <h1>Wir sind bald wieder da!</h1>
-    <p>Diese Website wird gerade überarbeitet.</p>
-  </div>
+  <img class="bg" src="./im-aufbau.jpg" alt="Seite im Aufbau">
+  <div class="vignette"></div>
+
+  <a
+    class="contact"
+    href="mailto:office@kp-plattner.at?subject=STNG-POUCHES.at"
+  >
+    <span class="dot" aria-hidden="true"></span>
+    <span class="text">
+      <span class="title">Kontakt aufnehmen</span>
+      <span class="subtitle">office@kp-plattner.at</span>
+    </span>
+  </a>
 </body>
 </html>
