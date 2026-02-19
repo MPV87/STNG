@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- ✅ Montserrat (statt Inter + Space Grotesk) -->
+  <!-- ✅ Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
@@ -22,12 +22,11 @@
       --radius: 22px;
       --max: 1180px;
 
-      /* ✅ YOUR updated accent colors */
-      --berry: #ea4960;   /* Berry Seltzer */
-      --rasp:  #a52f83;   /* Raspberry */
-      --mint:  #5f85c3;   /* Double Mint */
-      --cola:  #7b7b7b;   /* Cola Cherry */
-      --bubble:#eb5493;   /* Bubble */
+      --berry: #ea4960;
+      --rasp:  #a52f83;
+      --mint:  #5f85c3;
+      --cola:  #7b7b7b;
+      --bubble:#eb5493;
     }
 
     * { box-sizing: border-box; }
@@ -84,7 +83,7 @@
       font-weight: 800;
     }
 
-    /* ✅ LOGO + hover glow */
+    /* Logo */
     .logo{
       height: 28px;
       width: auto;
@@ -181,33 +180,18 @@
       border-color: rgba(255,255,255,0.22);
       background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
     }
-    .hero-card{
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-      min-height: 320px;
-    }
-    .hero-card::before{
-      content:"";
-      position:absolute; inset:-40%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent 55%);
-      transform: rotate(8deg);
-      pointer-events:none;
-    }
+
+    /* ✅ Hero-Bild ohne Rahmen/Box */
     .hero-img-wrap{
       position: relative;
-      padding: 18px;
+      padding: 0;
       display:flex;
-      height: 100%;
       align-items:center;
       justify-content:center;
     }
     .hero-img{
       width: 100%;
-      max-width: 540px;
+      max-width: 640px;
       height: auto;
       display:block;
       filter: drop-shadow(0 26px 60px rgba(0,0,0,0.65));
@@ -377,66 +361,6 @@
         0 0 60px color-mix(in srgb, var(--accent) 18%, transparent);
     }
 
-    /* Quality */
-    .quality{ padding: 56px 0 76px; }
-    .quality-card{
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-      box-shadow: var(--shadow);
-      padding: 26px;
-      display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 18px;
-      align-items: start;
-      position: relative;
-      overflow:hidden;
-    }
-    .quality-card::before{
-      content:"";
-      position:absolute; inset:-60% -30%;
-      background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.12), transparent 55%);
-      transform: rotate(-8deg);
-      pointer-events:none;
-    }
-    .quality h2{
-      margin: 0 0 10px;
-      font-family: "Montserrat", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: clamp(22px, 3vw, 34px);
-      font-weight: 900;
-    }
-    .quality p{
-      margin: 0 0 14px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-weight: 500;
-    }
-    .badge{
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px;
-      background: rgba(255,255,255,0.03);
-    }
-    .badge strong{
-      display:block;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 12px;
-      font-family: "Montserrat", sans-serif;
-      margin-bottom: 8px;
-      color: rgba(255,255,255,0.85);
-      font-weight: 900;
-    }
-    .badge span{
-      display:block;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.7;
-      font-size: 13px;
-      font-weight: 500;
-    }
-
     footer{
       border-top: 1px solid var(--line);
       padding: 26px 0;
@@ -513,7 +437,6 @@
           "info" !important;
         min-height: unset;
       }
-      .quality-card{ grid-template-columns: 1fr; }
       .nav-links{ display:none; }
       .progress{ display:none; }
     }
@@ -524,12 +447,11 @@
   <header class="nav" id="siteNav" aria-label="Navigation">
     <div class="container nav-inner">
       <a class="brand" href="#top" aria-label="Zur Startseite">
-        <img src="sting-logo-white.png" alt="STNG Logo" class="logo">
+        <img src="Sting logo white.png" alt="STNG Logo" class="logo">
       </a>
 
       <nav class="nav-links" aria-label="Sektionen">
         <a href="#produkte">Produkte</a>
-        <a href="#qualität">Qualität</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
     </div>
@@ -558,14 +480,12 @@
 
           <div class="hero-cta">
             <a class="btn primary" href="#produkte">Alle Sorten ansehen</a>
-            <a class="btn" href="#qualität">Mehr zur Qualität</a>
           </div>
         </div>
 
-        <div class="hero-card" aria-label="Alle Sorten">
-          <div class="hero-img-wrap">
-            <img class="hero-img" src="Hero.png" alt="STNG Pouches – alle 5 Sorten" />
-          </div>
+        <!-- ✅ nur Bild, kein Rahmen -->
+        <div class="hero-img-wrap" aria-label="Alle Sorten">
+          <img class="hero-img" src="Hero.png" alt="STNG Pouches – alle 5 Sorten" />
         </div>
       </div>
     </section>
@@ -577,7 +497,7 @@
       <div class="container">
 
         <!-- 1: RIGHT (75300) -->
-        <article class="flavor right" id="f1">
+        <article class="flavor right" id="f1" data-step="1">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -612,7 +532,7 @@
         </article>
 
         <!-- 2: LEFT (75301) -->
-        <article class="flavor left" id="f2">
+        <article class="flavor left" id="f2" data-step="2">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -647,7 +567,7 @@
         </article>
 
         <!-- 3: RIGHT (75302) -->
-        <article class="flavor right" id="f3">
+        <article class="flavor right" id="f3" data-step="3">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -682,7 +602,7 @@
         </article>
 
         <!-- 4: LEFT (75303) -->
-        <article class="flavor left" id="f4">
+        <article class="flavor left" id="f4" data-step="4">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -717,7 +637,7 @@
         </article>
 
         <!-- 5: RIGHT (75304) -->
-        <article class="flavor right" id="f5">
+        <article class="flavor right" id="f5" data-step="5">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -754,37 +674,13 @@
       </div>
     </section>
 
-    <!-- QUALITY -->
-    <section id="qualität" class="quality">
-      <div class="container">
-        <div class="quality-card">
-          <div>
-            <div class="kicker">Qualität</div>
-            <h2>Designed for impact — Swedish quality</h2>
-            <p>
-              Modern, clean, konsistent: STNG setzt auf klare Produktidentität und
-              starkes Auftreten — inspiriert vom skandinavischen Qualitätsanspruch.
-            </p>
-            <p>
-              (Wenn du konkrete Claims/Specs hast, kann ich dir diese Sektion exakt texten.)
-            </p>
-          </div>
-          <div class="badge">
-            <strong>Quick Facts</strong>
-            <span>• 5 Flavours</span>
-            <span>• Art.-Nr. 75300–75304</span>
-            <span>• Slide-in Scroll Effekt</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ✅ QUALITY SECTION REMOVED -->
 
     <footer id="kontakt">
       <div class="container foot">
         <div>© <span id="year"></span> STNG</div>
         <div style="display:flex; gap:14px; flex-wrap:wrap;">
           <a href="#produkte">Produkte</a>
-          <a href="#qualität">Qualität</a>
           <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'})">Nach oben</a>
         </div>
       </div>
@@ -806,7 +702,7 @@
     }, { threshold: 0.22 });
     targets.forEach(t => io.observe(t));
 
-    // Premium nav scroll effect
+    // Nav background change
     const nav = document.getElementById("siteNav");
     const onScroll = () => {
       if (window.scrollY > 12) nav.classList.add("scrolled");
@@ -817,7 +713,8 @@
 
     // ✅ Progress dots: click scrolls the section to screen center
     const progressLinks = Array.from(document.querySelectorAll(".progress a"));
-    const sections = ["f1","f2","f3","f4","f5"].map(id => document.getElementById(id));
+    const sectionIds = ["f1","f2","f3","f4","f5"];
+    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
     // apply accent to each dot when active
     progressLinks.forEach((a) => {
@@ -825,11 +722,10 @@
       a.style.setProperty("--accent", accent);
     });
 
-    // custom scroll-to-center on click
+    // click: center section
     progressLinks.forEach(link => {
       link.addEventListener("click", function(e){
         e.preventDefault();
-
         const targetId = this.getAttribute("href").replace("#","");
         const target = document.getElementById(targetId);
         if(!target) return;
@@ -837,27 +733,36 @@
         const rect = target.getBoundingClientRect();
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const offset = rect.top + scrollTop - (window.innerHeight / 2) + (rect.height / 2);
-
         window.scrollTo({ top: offset, behavior: "smooth" });
       });
     });
 
-    // highlight active while scrolling
-    const highlight = (id) => {
-      progressLinks.forEach(a =>
-        a.classList.toggle("active", a.getAttribute("href") === `#${id}`)
-      );
+    // ✅ FIX: Active dot = section that is in the CENTER band of the viewport
+    const setActive = (id) => {
+      progressLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
     };
 
-    const so = new IntersectionObserver((entries) => {
+    const centerObserver = new IntersectionObserver((entries) => {
+      // entries can trigger multiple at once; pick the one closest to viewport center
+      const centerY = window.innerHeight / 2;
+
       const visible = entries
         .filter(e => e.isIntersecting)
-        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible?.target?.id) highlight(visible.target.id);
-    }, { threshold: [0.25, 0.35, 0.5, 0.65] });
+        .map(e => ({
+          id: e.target.id,
+          dist: Math.abs((e.boundingClientRect.top + e.boundingClientRect.bottom) / 2 - centerY)
+        }))
+        .sort((a,b) => a.dist - b.dist)[0];
 
-    sections.forEach(s => s && so.observe(s));
-    highlight("f1");
+      if (visible?.id) setActive(visible.id);
+    }, {
+      threshold: 0,
+      // "active zone" around the middle of the screen
+      rootMargin: "-45% 0px -45% 0px"
+    });
+
+    sections.forEach(s => centerObserver.observe(s));
+    setActive("f1");
   </script>
 </body>
 </html>
