@@ -133,7 +133,6 @@
     }
     .notice strong{ color: rgba(255,255,255,0.92); }
 
-    /* Inline Countdown Banner */
     .countdown-banner{
       display:none;
       border: 1px solid rgba(255,255,255,0.16);
@@ -268,6 +267,7 @@
       cursor: pointer;
       transition: 160ms ease;
       user-select:none;
+      font-family: inherit;
     }
     .btn:hover{
       background: rgba(255,255,255,0.08);
@@ -327,7 +327,7 @@
     }
 
     /* ===========================
-       ✅ COUNTDOWN POPUP
+       ✅ COUNTDOWN POPUP (locked)
        =========================== */
     .modal{
       position: fixed;
@@ -337,13 +337,13 @@
       align-items:center;
       justify-content:center;
       padding: 18px;
-      background: rgba(0,0,0,0.72);
+      background: rgba(0,0,0,0.74);
       backdrop-filter: blur(10px);
     }
     .modal.show{ display:flex; }
 
     .modal-card{
-      width: min(760px, 100%);
+      width: min(820px, 100%);
       border-radius: 22px;
       border: 1px solid rgba(255,255,255,0.16);
       background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
@@ -367,29 +367,30 @@
       align-items:center;
       justify-content:space-between;
       gap: 14px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .modal-title{
       margin: 0;
       font-size: 16px;
       font-weight: 900;
-      letter-spacing: 0.10em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.92);
     }
     .modal-sub{
       margin: 0 0 14px;
-      color: rgba(255,255,255,0.78);
+      color: rgba(255,255,255,0.80);
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.75;
       font-weight: 600;
     }
 
+    /* Timer with flip-ish animation */
     .timer{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
-      margin: 14px 0 14px;
+      margin: 14px 0 12px;
     }
     .tbox{
       border: 1px solid rgba(255,255,255,0.14);
@@ -397,12 +398,35 @@
       border-radius: 18px;
       padding: 12px 10px;
       text-align:center;
+      position: relative;
+      overflow:hidden;
+      transform: translateZ(0);
+    }
+    .tbox::after{
+      content:"";
+      position:absolute;
+      left:-40%;
+      top:-120%;
+      width: 180%;
+      height: 220%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.10), transparent 55%);
+      transform: rotate(12deg);
+      pointer-events:none;
     }
     .tval{
       font-weight: 900;
-      font-size: clamp(22px, 5vw, 34px);
-      letter-spacing: 0.06em;
+      font-size: clamp(22px, 5vw, 36px);
+      letter-spacing: 0.08em;
       line-height: 1.05;
+      position: relative;
+    }
+    .tval.flip{
+      animation: flip 520ms cubic-bezier(.2,.8,.2,1);
+    }
+    @keyframes flip{
+      0%   { transform: translateY(0) rotateX(0deg); opacity: 1; }
+      40%  { transform: translateY(-6px) rotateX(45deg); opacity: 0.85; }
+      100% { transform: translateY(0) rotateX(0deg); opacity: 1; }
     }
     .tlab{
       margin-top: 6px;
@@ -411,6 +435,7 @@
       text-transform: uppercase;
       color: rgba(255,255,255,0.70);
       font-weight: 800;
+      position: relative;
     }
 
     .modal-note{
@@ -431,9 +456,8 @@
       flex-wrap:wrap;
       margin-top: 14px;
       align-items:center;
-      justify-content:flex-end;
+      justify-content:space-between;
     }
-
     .small{
       font-size: 12px;
       color: rgba(255,255,255,0.60);
@@ -441,11 +465,15 @@
       line-height: 1.6;
       margin-top: 10px;
     }
+
+    .btn.linkish{
+      background: rgba(255,255,255,0.04);
+    }
   </style>
 </head>
 
 <body>
-  <!-- ✅ Countdown Modal -->
+  <!-- ✅ Countdown Modal (stays until start; only exit is "Zurück") -->
   <div class="modal" id="countdownModal" role="dialog" aria-modal="true" aria-labelledby="cdTitle">
     <div class="modal-card">
       <div class="modal-inner">
@@ -472,7 +500,8 @@
         </div>
 
         <div class="modal-actions">
-          <button class="btn" id="closeModal" type="button">Ok</button>
+          <a class="btn linkish" href="index.html">← Zurück zur Startseite</a>
+          <div class="hint">Popup bleibt bis zum Start aktiv.</div>
         </div>
 
         <div class="small">
@@ -510,7 +539,6 @@
         Abgabe nur an Personen über 18 Jahren.
       </div>
 
-      <!-- ✅ Inline Countdown Banner (nur vor Start sichtbar) -->
       <div class="countdown-banner" id="countdownBanner">
         Aktion startet in: <span class="mono" id="bannerTime">--:--:--</span>
         (01.03.2026 · 00:00 AT)
@@ -614,7 +642,6 @@
     const TARGET_UTC = Date.UTC(2026, 1, 28, 23, 0, 0); // 2026-02-28T23:00:00Z
 
     const modal = document.getElementById("countdownModal");
-    const closeModalBtn = document.getElementById("closeModal");
     const banner = document.getElementById("countdownBanner");
     const bannerTime = document.getElementById("bannerTime");
 
@@ -649,6 +676,19 @@
       closeModal();
     }
 
+    const last = { d: null, h: null, m: null, s: null };
+
+    function flipIfChanged(el, val, key){
+      if (last[key] === val) return;
+      last[key] = val;
+
+      el.classList.remove("flip");
+      // force reflow to restart animation
+      void el.offsetWidth;
+      el.textContent = val;
+      el.classList.add("flip");
+    }
+
     function renderCountdown(ms){
       const totalSec = Math.max(0, Math.floor(ms / 1000));
       const days = Math.floor(totalSec / 86400);
@@ -656,16 +696,14 @@
       const mins = Math.floor((totalSec % 3600) / 60);
       const secs = totalSec % 60;
 
-      dEl.textContent = String(days);
-      hEl.textContent = pad2(hours);
-      mEl.textContent = pad2(mins);
-      sEl.textContent = pad2(secs);
+      flipIfChanged(dEl, String(days), "d");
+      flipIfChanged(hEl, pad2(hours), "h");
+      flipIfChanged(mEl, pad2(mins), "m");
+      flipIfChanged(sEl, pad2(secs), "s");
 
-      // banner format: DD:HH:MM:SS (days can be 1-2 digits+)
       bannerTime.textContent = `${days}D ${pad2(hours)}:${pad2(mins)}:${pad2(secs)}`;
     }
 
-    // init countdown state
     let timer = null;
     function initCountdown(){
       const now = Date.now();
@@ -691,16 +729,17 @@
       }
     }
 
-    closeModalBtn.addEventListener("click", () => {
-      // Modal schließen darf man, aber Formular bleibt bis Start gesperrt.
-      closeModal();
-    });
-
-    // ESC soll das Modal nicht "wegdrücken" (optional, wirkt cleaner)
+    // No ESC close / no outside click close (forced until countdown ends)
     document.addEventListener("keydown", (e) => {
       if (modal.classList.contains("show") && e.key === "Escape") {
         e.preventDefault();
       }
+    });
+
+    // Prevent clicks on backdrop from closing (we don't add any close handler)
+    modal.addEventListener("click", (e) => {
+      // if user clicks outside card, do nothing
+      if (e.target === modal) e.preventDefault();
     });
 
     initCountdown();
@@ -725,7 +764,6 @@
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      // extra safety: if locked, do nothing
       if (submitBtn.disabled) return;
 
       errorMsg.style.display = "none";
