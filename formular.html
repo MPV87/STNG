@@ -35,6 +35,7 @@
         var(--bg);
       overflow-x:hidden;
     }
+    body.modal-open{ overflow:hidden; }
 
     a{ color:inherit; text-decoration:none; }
     .container{
@@ -128,9 +129,28 @@
       color: rgba(255,255,255,0.78);
       font-size: 13px;
       line-height: 1.7;
-      margin: 18px 0 26px;
+      margin: 18px 0 18px;
     }
     .notice strong{ color: rgba(255,255,255,0.92); }
+
+    /* Inline Countdown Banner */
+    .countdown-banner{
+      display:none;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.20);
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin: 0 0 26px;
+      color: rgba(255,255,255,0.82);
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 650;
+    }
+    .countdown-banner.show{ display:block; }
+    .countdown-banner .mono{
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
 
     .card{
       border: 1px solid var(--line);
@@ -167,7 +187,7 @@
       margin: 0 0 8px;
     }
 
-    input, select, textarea{
+    input, select{
       width: 100%;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.16);
@@ -180,7 +200,7 @@
       transition: 160ms ease;
     }
     input::placeholder{ color: rgba(255,255,255,0.38); font-weight: 600; }
-    input:focus, select:focus, textarea:focus{
+    input:focus, select:focus{
       border-color: rgba(255,255,255,0.28);
       background: rgba(0,0,0,0.28);
     }
@@ -257,6 +277,11 @@
       border-color: rgba(255,255,255,0.26);
       background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
     }
+    .btn:disabled{
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     .hint{
       font-size: 12px;
@@ -280,7 +305,7 @@
       margin-top: 12px;
       color: #ffb4b4;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     footer{
@@ -300,10 +325,163 @@
     @media (max-width: 920px){
       .grid{ grid-template-columns: 1fr; }
     }
+
+    /* ===========================
+       ✅ COUNTDOWN POPUP
+       =========================== */
+    .modal{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(10px);
+    }
+    .modal.show{ display:flex; }
+
+    .modal-card{
+      width: min(760px, 100%);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      box-shadow: 0 20px 70px rgba(0,0,0,0.65);
+      overflow:hidden;
+      position: relative;
+      padding: 22px;
+    }
+    .modal-card::before{
+      content:"";
+      position:absolute;
+      inset:-60% -40%;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.14), transparent 55%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .modal-inner{ position: relative; }
+
+    .modal-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .modal-title{
+      margin: 0;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.92);
+    }
+    .modal-sub{
+      margin: 0 0 14px;
+      color: rgba(255,255,255,0.78);
+      font-size: 14px;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+
+    .timer{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 14px 0 14px;
+    }
+    .tbox{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.22);
+      border-radius: 18px;
+      padding: 12px 10px;
+      text-align:center;
+    }
+    .tval{
+      font-weight: 900;
+      font-size: clamp(22px, 5vw, 34px);
+      letter-spacing: 0.06em;
+      line-height: 1.05;
+    }
+    .tlab{
+      margin-top: 6px;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.70);
+      font-weight: 800;
+    }
+
+    .modal-note{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      padding: 12px 14px;
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.7;
+      margin-top: 12px;
+    }
+    .modal-note strong{ color: rgba(255,255,255,0.92); }
+
+    .modal-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .small{
+      font-size: 12px;
+      color: rgba(255,255,255,0.60);
+      font-weight: 650;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
 <body>
+  <!-- ✅ Countdown Modal -->
+  <div class="modal" id="countdownModal" role="dialog" aria-modal="true" aria-labelledby="cdTitle">
+    <div class="modal-card">
+      <div class="modal-inner">
+        <div class="modal-top">
+          <img src="sting-logo-white.png" alt="STNG Logo" class="logo" style="height:24px;">
+          <div class="modal-title" id="cdTitle">Gratis-Aktion startet bald</div>
+        </div>
+
+        <p class="modal-sub">
+          Hej hej! Im März gibt’s <strong>1 kostenlose Dose</strong>. Die Aktion startet am
+          <strong>01.03.2026 um 00:00</strong> (Österreich).
+        </p>
+
+        <div class="timer" aria-label="Countdown">
+          <div class="tbox"><div class="tval" id="d">--</div><div class="tlab">Tage</div></div>
+          <div class="tbox"><div class="tval" id="h">--</div><div class="tlab">Std</div></div>
+          <div class="tbox"><div class="tval" id="m">--</div><div class="tlab">Min</div></div>
+          <div class="tbox"><div class="tval" id="s">--</div><div class="tlab">Sek</div></div>
+        </div>
+
+        <div class="modal-note">
+          <strong>Hinweis:</strong> Dieses Produkt enthält Nikotin, einen Stoff, der sehr stark abhängig macht.
+          Abgabe nur an Personen über 18 Jahren.
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn" id="closeModal" type="button">Ok</button>
+        </div>
+
+        <div class="small">
+          Sobald der Countdown abgelaufen ist, wird das Formular automatisch freigeschaltet.
+        </div>
+      </div>
+    </div>
+  </div>
+
   <header aria-label="Navigation">
     <div class="container topbar">
       <a href="index.html" aria-label="Zurück zur Startseite">
@@ -332,11 +510,13 @@
         Abgabe nur an Personen über 18 Jahren.
       </div>
 
+      <!-- ✅ Inline Countdown Banner (nur vor Start sichtbar) -->
+      <div class="countdown-banner" id="countdownBanner">
+        Aktion startet in: <span class="mono" id="bannerTime">--:--:--</span>
+        (01.03.2026 · 00:00 AT)
+      </div>
+
       <div class="card">
-        <!--
-          ✅ OHNE Backend: zeigt nur "Danke" an.
-          Wenn du später z.B. Formspree/Netlify verwendest, setze action="" + method="POST".
-        -->
         <form id="stngForm" novalidate>
           <div class="grid">
             <div class="full">
@@ -376,7 +556,6 @@
               <select id="country" name="country" disabled>
                 <option selected>Österreich</option>
               </select>
-              <!-- hidden field, damit trotzdem gesendet werden kann (falls du später action nutzt) -->
               <input type="hidden" name="country_fixed" value="Österreich" />
             </div>
           </div>
@@ -401,8 +580,8 @@
           </div>
 
           <div class="actions">
-            <button class="btn primary" type="submit">Gratis Dose anfordern</button>
-            <span class="hint">*Pflichtfelder erforderlich</span>
+            <button class="btn primary" id="submitBtn" type="submit">Gratis Dose anfordern</button>
+            <span class="hint" id="formHint">*Pflichtfelder erforderlich</span>
           </div>
 
           <div class="error" id="errorMsg">Bitte alle Pflichtfelder ausfüllen und Datenschutz bestätigen.</div>
@@ -427,25 +606,127 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    /* ===========================
+       ✅ Countdown Startzeit (AT)
+       01.03.2026 00:00 Europe/Vienna
+       -> UTC: 28.02.2026 23:00:00Z (CET = UTC+1)
+       =========================== */
+    const TARGET_UTC = Date.UTC(2026, 1, 28, 23, 0, 0); // 2026-02-28T23:00:00Z
+
+    const modal = document.getElementById("countdownModal");
+    const closeModalBtn = document.getElementById("closeModal");
+    const banner = document.getElementById("countdownBanner");
+    const bannerTime = document.getElementById("bannerTime");
+
+    const submitBtn = document.getElementById("submitBtn");
+    const formHint = document.getElementById("formHint");
+
+    const dEl = document.getElementById("d");
+    const hEl = document.getElementById("h");
+    const mEl = document.getElementById("m");
+    const sEl = document.getElementById("s");
+
+    const pad2 = (n) => String(n).padStart(2, "0");
+
+    function openModal(){
+      modal.classList.add("show");
+      document.body.classList.add("modal-open");
+    }
+    function closeModal(){
+      modal.classList.remove("show");
+      document.body.classList.remove("modal-open");
+    }
+
+    function lockForm(){
+      submitBtn.disabled = true;
+      formHint.textContent = "Aktion noch nicht gestartet — Countdown läuft.";
+      banner.classList.add("show");
+    }
+    function unlockForm(){
+      submitBtn.disabled = false;
+      formHint.textContent = "*Pflichtfelder erforderlich";
+      banner.classList.remove("show");
+      closeModal();
+    }
+
+    function renderCountdown(ms){
+      const totalSec = Math.max(0, Math.floor(ms / 1000));
+      const days = Math.floor(totalSec / 86400);
+      const hours = Math.floor((totalSec % 86400) / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+
+      dEl.textContent = String(days);
+      hEl.textContent = pad2(hours);
+      mEl.textContent = pad2(mins);
+      sEl.textContent = pad2(secs);
+
+      // banner format: DD:HH:MM:SS (days can be 1-2 digits+)
+      bannerTime.textContent = `${days}D ${pad2(hours)}:${pad2(mins)}:${pad2(secs)}`;
+    }
+
+    // init countdown state
+    let timer = null;
+    function initCountdown(){
+      const now = Date.now();
+      const diff = TARGET_UTC - now;
+
+      if (diff > 0){
+        lockForm();
+        openModal();
+        renderCountdown(diff);
+
+        timer = setInterval(() => {
+          const d = TARGET_UTC - Date.now();
+          renderCountdown(d);
+
+          if (d <= 0){
+            clearInterval(timer);
+            timer = null;
+            unlockForm();
+          }
+        }, 250);
+      } else {
+        unlockForm();
+      }
+    }
+
+    closeModalBtn.addEventListener("click", () => {
+      // Modal schließen darf man, aber Formular bleibt bis Start gesperrt.
+      closeModal();
+    });
+
+    // ESC soll das Modal nicht "wegdrücken" (optional, wirkt cleaner)
+    document.addEventListener("keydown", (e) => {
+      if (modal.classList.contains("show") && e.key === "Escape") {
+        e.preventDefault();
+      }
+    });
+
+    initCountdown();
+
+    /* ===========================
+       Formular (Frontend-only)
+       =========================== */
     const form = document.getElementById("stngForm");
     const errorMsg = document.getElementById("errorMsg");
     const successMsg = document.getElementById("successMsg");
-
-    const requiredIds = ["flavour", "name", "address", "zip", "city"];
     const privacy = document.getElementById("privacy");
+    const requiredIds = ["flavour", "name", "address", "zip", "city"];
 
-    // simple validation
     const isValid = () => {
       const okFields = requiredIds.every(id => {
         const el = document.getElementById(id);
         return el && String(el.value || "").trim().length > 0;
       });
-      const okPrivacy = privacy.checked === true;
-      return okFields && okPrivacy;
+      return okFields && privacy.checked === true;
     };
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+
+      // extra safety: if locked, do nothing
+      if (submitBtn.disabled) return;
 
       errorMsg.style.display = "none";
       successMsg.style.display = "none";
@@ -455,11 +736,8 @@
         return;
       }
 
-      // ✅ NO BACKEND: show success
       successMsg.style.display = "block";
       form.reset();
-
-      // keep country fixed visually
       document.getElementById("country").selectedIndex = 0;
     });
   </script>
