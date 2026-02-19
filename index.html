@@ -2,7 +2,7 @@
 <html lang="de" id="top">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>STNG Pouches — 5 Flavours</title>
   <meta name="description" content="STNG Pouches — 5 Geschmacksrichtungen. Qualität aus Schweden." />
 
@@ -29,7 +29,7 @@
     }
 
     * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    html, body { height: 100%; overflow-x: clip; }
     html{ scroll-behavior: smooth; }
 
     body{
@@ -41,7 +41,7 @@
         radial-gradient(1000px 700px at 80% 20%, rgba(255,255,255,0.05), transparent 60%),
         radial-gradient(900px 600px at 50% 90%, rgba(255,255,255,0.04), transparent 60%),
         var(--bg);
-      overflow-x: hidden;
+      overflow-x: clip;
     }
     body.modal-open{ overflow: hidden; }
 
@@ -445,7 +445,7 @@
     }
 
     /* ===========================
-       ✅ AGE GATE POPUP (Mobile fix)
+       ✅ AGE GATE POPUP (Android-friendly + no weird zoom)
        =========================== */
     .agegate{
       position: fixed;
@@ -457,12 +457,22 @@
       padding: 14px;
       background: rgba(0,0,0,0.72);
       backdrop-filter: blur(10px);
+
+      width: 100%;
+      max-width: 100%;
     }
     .agegate.show{ display:flex; }
+
+    /* ✅ stable viewport height across browsers */
+    .agegate{ min-height: 100vh; }
+    @supports (height: 100dvh){ .agegate{ min-height: 100dvh; } }
+    @supports (height: 100svh){ .agegate{ min-height: 100svh; } }
 
     .agegate-card{
       width: min(680px, 100%);
       max-width: 680px;
+      margin: 0 auto;
+
       border-radius: 22px;
       border: 1px solid rgba(255,255,255,0.16);
       background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
@@ -495,19 +505,22 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
+
+    /* ✅ keep text >= 16px to avoid mobile zoom quirks */
     .agegate-sub{
       margin: 0 0 14px;
       color: rgba(255,255,255,0.78);
-      font-size: 14px;
+      font-size: 16px;
       line-height: 1.7;
       font-weight: 600;
     }
+
     .warning{
       border: 1px solid rgba(255,255,255,0.14);
       background: rgba(0,0,0,0.22);
       border-radius: 16px;
       padding: 12px 14px;
-      font-size: 13px;
+      font-size: 16px;
       line-height: 1.7;
       color: rgba(255,255,255,0.78);
       margin: 14px 0 16px;
@@ -530,7 +543,7 @@
       border-radius: 16px;
       padding: 12px 14px;
       color: rgba(255,255,255,0.82);
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1.7;
       font-weight: 650;
     }
@@ -539,7 +552,7 @@
     .agegate-foot{
       margin-top: 10px;
       color: rgba(255,255,255,0.55);
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.6;
       font-weight: 650;
     }
