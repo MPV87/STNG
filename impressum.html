@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Impressum — STNG Pouches</title>
+  <meta name="description" content="Impressum — KP-Plattner GmbH" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #07070a;
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --line: rgba(255,255,255,0.14);
+      --radius: 22px;
+      --max: 980px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,0.06), transparent 60%),
+        radial-gradient(1000px 700px at 80% 20%, rgba(255,255,255,0.05), transparent 60%),
+        radial-gradient(900px 600px at 50% 90%, rgba(255,255,255,0.04), transparent 60%),
+        var(--bg);
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .container{
+      width: min(var(--max), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* Top */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(7,7,10,0.85), rgba(7,7,10,0.35));
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .logo{
+      height: 28px;
+      width:auto;
+      display:block;
+      opacity:0.95;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.25));
+      transition: 220ms ease;
+    }
+    .logo:hover{
+      transform: translateY(-1px) scale(1.02);
+      opacity:1;
+      filter:
+        drop-shadow(0 0 18px rgba(255,255,255,0.35))
+        drop-shadow(0 0 34px rgba(255,255,255,0.18));
+    }
+    .back{
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      border: 1px solid transparent;
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: 160ms ease;
+    }
+    .back:hover{
+      border-color: var(--line);
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+    }
+
+    main{ padding: 56px 0 64px; }
+
+    h1{
+      margin: 0 0 18px;
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.03);
+      padding: 22px;
+    }
+
+    .label{
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .info{
+      font-size: 15px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+
+    .info a{
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    footer{
+      border-top: 1px solid var(--line);
+      padding: 22px 0;
+      color: rgba(255,255,255,0.62);
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .foot{
+      display:flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container topbar">
+      <a href="index.html" aria-label="Zurück zur Startseite">
+        <img src="Sting logo white.png" alt="STNG Logo" class="logo">
+      </a>
+      <a class="back" href="index.html">← Zurück</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Impressum</h1>
+
+      <div class="card">
+        <div class="label">Angaben gemäß § 5 ECG / § 25 MedienG</div>
+        <div class="info">
+          <strong>KP Plattner GmbH</strong><br>
+          Raucherbedarf und Werbeartikel<br>
+          Steinbockallee 9<br>
+          A-6063 Innsbruck<br><br>
+
+          Tel.: <a href="tel:+43512264064">+43 512 264064</a><br>
+          Email: <a href="mailto:office@kp-plattner.at">office@kp-plattner.at</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div>© <span id="year"></span> STNG</div>
+      <div><a href="index.html">Startseite</a></div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
