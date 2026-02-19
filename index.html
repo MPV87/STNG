@@ -6,6 +6,10 @@
   <title>STNG Pouches — 5 Flavours</title>
   <meta name="description" content="STNG Pouches — 5 Geschmacksrichtungen. Qualität aus Schweden." />
 
+  <!-- ✅ FAVICON -->
+  <link rel="icon" href="stng-favicon.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="stng-favicon.jpg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -445,7 +449,7 @@
     }
 
     /* ===========================
-       ✅ AGE GATE POPUP (Android-friendly + no weird zoom)
+       ✅ AGE GATE POPUP (Android-friendly)
        =========================== */
     .agegate{
       position: fixed;
@@ -460,19 +464,16 @@
 
       width: 100%;
       max-width: 100%;
+      min-height: 100vh;
     }
-    .agegate.show{ display:flex; }
-
-    /* ✅ stable viewport height across browsers */
-    .agegate{ min-height: 100vh; }
     @supports (height: 100dvh){ .agegate{ min-height: 100dvh; } }
     @supports (height: 100svh){ .agegate{ min-height: 100svh; } }
+    .agegate.show{ display:flex; }
 
     .agegate-card{
       width: min(680px, 100%);
       max-width: 680px;
       margin: 0 auto;
-
       border-radius: 22px;
       border: 1px solid rgba(255,255,255,0.16);
       background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
@@ -514,7 +515,6 @@
       line-height: 1.7;
       font-weight: 600;
     }
-
     .warning{
       border: 1px solid rgba(255,255,255,0.14);
       background: rgba(0,0,0,0.22);
