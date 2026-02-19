@@ -21,7 +21,7 @@
       --radius: 22px;
       --max: 1180px;
 
-      /* Accent colors per flavour (feel free to adjust to exact pack colors) */
+      /* ✅ YOUR updated accent colors */
       --berry: #ea4960;   /* Berry Seltzer */
       --rasp:  #a52f83;   /* Raspberry */
       --mint:  #5f85c3;   /* Double Mint */
@@ -31,6 +31,8 @@
 
     * { box-sizing: border-box; }
     html, body { height: 100%; }
+    html{ scroll-behavior: smooth; }
+
     body{
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -53,29 +55,54 @@
     .nav{
       position: sticky;
       top: 0;
-      z-index: 30;
+      z-index: 50;
       backdrop-filter: blur(10px);
       background: linear-gradient(to bottom, rgba(7,7,10,0.85), rgba(7,7,10,0.35));
       border-bottom: 1px solid var(--line);
+      transition: 220ms ease;
+    }
+    .nav.scrolled{
+      background: linear-gradient(to bottom, rgba(7,7,10,0.92), rgba(7,7,10,0.62));
+      border-bottom-color: rgba(255,255,255,0.18);
     }
     .nav-inner{
       display:flex; align-items:center; justify-content:space-between;
       padding: 14px 0;
       gap: 16px;
+      transition: 220ms ease;
     }
+    .nav.scrolled .nav-inner{ padding: 10px 0; }
+
     .brand{
-      display:flex; align-items:baseline; gap: 10px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       font-family: "Space Grotesk", Inter, sans-serif;
       font-weight: 700;
     }
-    .brand .dot{
-      width: 10px; height: 10px; border-radius: 999px;
-      background: rgba(255,255,255,0.9);
-      box-shadow: 0 0 24px rgba(255,255,255,0.25);
-      transform: translateY(-1px);
+
+    /* ✅ LOGO + hover glow */
+    .logo{
+      height: 28px;
+      width: auto;
+      display:block;
+      opacity: 0.95;
+      transition: 220ms ease;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.25));
     }
+    .logo:hover{
+      transform: translateY(-1px) scale(1.02);
+      opacity: 1;
+      filter:
+        drop-shadow(0 0 18px rgba(255,255,255,0.35))
+        drop-shadow(0 0 34px rgba(255,255,255,0.18));
+    }
+    @media (min-width: 921px){
+      .logo{ height: 30px; }
+    }
+
     .nav-links{
       display:flex; gap: 14px; flex-wrap: wrap;
       font-size: 13px;
@@ -405,6 +432,57 @@
       flex-wrap: wrap;
     }
 
+    /* ✅ Progress Dots (01–05) */
+    .progress{
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.20);
+      backdrop-filter: blur(10px);
+      border-radius: 999px;
+    }
+    .progress a{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: rgba(255,255,255,0.65);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: 160ms ease;
+    }
+    .progress a:hover{
+      color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.10);
+    }
+    .progress .dot{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.28);
+      box-shadow: 0 0 0 rgba(255,255,255,0);
+      transition: 180ms ease;
+    }
+    .progress a.active{
+      color: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .progress a.active .dot{
+      background: var(--accent, rgba(255,255,255,0.9));
+      box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 60%, transparent);
+    }
+
     @media (max-width: 920px){
       .hero-grid{ grid-template-columns: 1fr; }
       .flavor-row{
@@ -416,17 +494,20 @@
       }
       .quality-card{ grid-template-columns: 1fr; }
       .nav-links{ display:none; }
+      .progress{ display:none; }
     }
   </style>
 </head>
 
 <body>
-  <header class="nav" aria-label="Navigation">
+  <!-- ✅ add id for scroll effect -->
+  <header class="nav" id="siteNav" aria-label="Navigation">
     <div class="container nav-inner">
-      <div class="brand" aria-label="STNG">
-        <span class="dot" aria-hidden="true"></span>
-        <span>STNG</span>
-      </div>
+      <!-- ✅ your logo instead of STNG -->
+      <a class="brand" href="#top" aria-label="Zur Startseite">
+        <img src="Sting logo white.png" alt="STNG Logo" class="logo">
+      </a>
+
       <nav class="nav-links" aria-label="Sektionen">
         <a href="#produkte">Produkte</a>
         <a href="#qualität">Qualität</a>
@@ -434,6 +515,15 @@
       </nav>
     </div>
   </header>
+
+  <!-- ✅ Progress Dots (links to each flavour) -->
+  <nav class="progress" aria-label="Produkt Navigation">
+    <a href="#f1" data-accent="var(--berry)"><span class="dot"></span><span>01</span></a>
+    <a href="#f2" data-accent="var(--rasp)"><span class="dot"></span><span>02</span></a>
+    <a href="#f3" data-accent="var(--mint)"><span class="dot"></span><span>03</span></a>
+    <a href="#f4" data-accent="var(--cola)"><span class="dot"></span><span>04</span></a>
+    <a href="#f5" data-accent="var(--bubble)"><span class="dot"></span><span>05</span></a>
+  </nav>
 
   <main>
     <!-- HERO -->
@@ -455,7 +545,6 @@
 
         <div class="hero-card" aria-label="Alle Sorten">
           <div class="hero-img-wrap">
-            <!-- ✅ Your hero file -->
             <img class="hero-img" src="Hero.png" alt="STNG Pouches – alle 5 Sorten" />
           </div>
         </div>
@@ -469,7 +558,7 @@
       <div class="container">
 
         <!-- 1: RIGHT (75300) -->
-        <article class="flavor right">
+        <article class="flavor right" id="f1">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -496,7 +585,7 @@
                   <p class="desc">Beerig, prickelnd, modern.</p>
                 </div>
                 <div class="packshot">
-                  <!-- ✅ Your file -->
+                  <!-- ✅ YOUR adjusted path -->
                   <img src="75300_1.png" alt="STNG Berry Seltzer Packshot" loading="lazy" />
                 </div>
               </div>
@@ -505,7 +594,7 @@
         </article>
 
         <!-- 2: LEFT (75301) -->
-        <article class="flavor left">
+        <article class="flavor left" id="f2">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -532,7 +621,6 @@
                   <p class="desc">Fruchtbetont und knackig — direkt auf Geschmack.</p>
                 </div>
                 <div class="packshot">
-                  <!-- ✅ Your file -->
                   <img src="75301_1.png" alt="STNG Raspberry Packshot" loading="lazy" />
                 </div>
               </div>
@@ -541,7 +629,7 @@
         </article>
 
         <!-- 3: RIGHT (75302) -->
-        <article class="flavor right">
+        <article class="flavor right" id="f3">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -568,7 +656,6 @@
                   <p class="desc">Klar, kühl, kompromisslos — der fresh hit.</p>
                 </div>
                 <div class="packshot">
-                  <!-- ✅ Your file -->
                   <img src="75302_1.png" alt="STNG Double Mint Packshot" loading="lazy" />
                 </div>
               </div>
@@ -577,7 +664,7 @@
         </article>
 
         <!-- 4: LEFT (75303) -->
-        <article class="flavor left">
+        <article class="flavor left" id="f4">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -604,7 +691,6 @@
                   <p class="desc">Cola-Vibes + Kirsch-Note — richtig rund.</p>
                 </div>
                 <div class="packshot">
-                  <!-- ✅ Your file -->
                   <img src="75303_1.png" alt="STNG Cola Cherry Packshot" loading="lazy" />
                 </div>
               </div>
@@ -613,7 +699,7 @@
         </article>
 
         <!-- 5: RIGHT (75304) -->
-        <article class="flavor right">
+        <article class="flavor right" id="f5">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -640,7 +726,6 @@
                   <p class="desc">Süß, auffällig, absolut nicht langweilig.</p>
                 </div>
                 <div class="packshot">
-                  <!-- ✅ Your file -->
                   <img src="75304_1.png" alt="STNG Bubble Packshot" loading="lazy" />
                 </div>
               </div>
@@ -701,8 +786,41 @@
         }
       }
     }, { threshold: 0.22 });
-
     targets.forEach(t => io.observe(t));
+
+    // ✅ Premium nav scroll effect
+    const nav = document.getElementById("siteNav");
+    const onScroll = () => {
+      if (window.scrollY > 12) nav.classList.add("scrolled");
+      else nav.classList.remove("scrolled");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // ✅ Progress dots: set active based on visible flavour section
+    const progressLinks = Array.from(document.querySelectorAll(".progress a"));
+    const sections = ["f1","f2","f3","f4","f5"].map(id => document.getElementById(id));
+
+    // apply accent to each dot when active
+    progressLinks.forEach((a) => {
+      const accent = a.getAttribute("data-accent");
+      a.style.setProperty("--accent", accent);
+    });
+
+    const highlight = (id) => {
+      progressLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
+    };
+
+    const so = new IntersectionObserver((entries) => {
+      // pick the entry with highest intersection ratio
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target?.id) highlight(visible.target.id);
+    }, { threshold: [0.25, 0.35, 0.5, 0.65] });
+
+    sections.forEach(s => s && so.observe(s));
+    highlight("f1");
   </script>
 </body>
 </html>
