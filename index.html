@@ -44,6 +44,7 @@
         var(--bg);
       overflow-x: hidden;
     }
+    body.modal-open{ overflow: hidden; }
 
     a { color: inherit; text-decoration: none; }
     .container{
@@ -83,7 +84,6 @@
       font-weight: 800;
     }
 
-    /* Logo */
     .logo{
       height: 28px;
       width: auto;
@@ -180,12 +180,21 @@
       border-color: rgba(255,255,255,0.22);
       background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
     }
+    .btn.danger{
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.82);
+    }
+    .btn.danger:hover{
+      background: rgba(255,255,255,0.05);
+    }
 
-    /* ✅ Hero-Bild ohne Rahmen/Box */
+    /* ✅ Hero ohne Rahmen */
     .hero-img-wrap{
       position: relative;
       padding: 0;
       display:flex;
+      height: 100%;
       align-items:center;
       justify-content:center;
     }
@@ -375,7 +384,7 @@
       flex-wrap: wrap;
     }
 
-    /* ✅ Progress Dots (01–05) */
+    /* Progress Dots */
     .progress{
       position: fixed;
       right: 18px;
@@ -440,10 +449,140 @@
       .nav-links{ display:none; }
       .progress{ display:none; }
     }
+
+    /* ===========================
+       ✅ AGE GATE POPUP (Modal)
+       =========================== */
+    .agegate{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(10px);
+    }
+    .agegate.show{ display:flex; }
+    .agegate-card{
+      width: min(720px, 100%);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      box-shadow: 0 20px 70px rgba(0,0,0,0.65);
+      overflow:hidden;
+      position: relative;
+      padding: 22px;
+    }
+    .agegate-card::before{
+      content:"";
+      position:absolute;
+      inset:-60% -40%;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.14), transparent 55%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .agegate-inner{ position: relative; }
+    .agegate-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .agegate-title{
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .agegate-sub{
+      margin: 0 0 14px;
+      color: rgba(255,255,255,0.78);
+      font-size: 14px;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+    .warning{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.22);
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.78);
+      margin: 14px 0 16px;
+    }
+    .warning strong{ color: rgba(255,255,255,0.92); }
+
+    .agegate-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .blocked{
+      display:none;
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+      padding: 12px 14px;
+      color: rgba(255,255,255,0.82);
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+    .blocked.show{ display:block; }
+
+    .agegate-foot{
+      margin-top: 10px;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 600;
+    }
   </style>
 </head>
 
 <body>
+  <!-- ✅ AGE GATE POPUP -->
+  <div class="agegate" id="agegate" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
+    <div class="agegate-card">
+      <div class="agegate-inner">
+        <div class="agegate-top">
+          <img src="sting-logo-white.png" alt="STNG Logo" class="logo" style="height:24px;">
+          <div class="agegate-title" id="ageTitle">18+ Check</div>
+        </div>
+
+        <p class="agegate-sub">
+          Hej hej! Kurz bevor’s losgeht: Wir müssen checken, ob du schon <strong>über 18</strong> bist.
+        </p>
+
+        <div class="warning">
+          <strong>Offizielle Warnung (AT):</strong> Dieses Produkt enthält Nikotin, einen Stoff, der sehr stark abhängig macht.
+        </div>
+
+        <div class="agegate-actions">
+          <button class="btn primary" id="btnYes" type="button">Ja, ich bin über 18 Jahre alt</button>
+          <button class="btn danger" id="btnNo" type="button">Nein, ich komme wieder wenn ich volljährig bin</button>
+        </div>
+
+        <div class="blocked" id="blockedMsg">
+          Alles klar — dann bitte später wiederkommen. 👋<br>
+          Du kannst diese Seite ohne Bestätigung nicht nutzen.
+        </div>
+
+        <div class="agegate-foot">
+          Hinweis: Deine Auswahl wird im Browser gespeichert, damit du nicht jedes Mal gefragt wirst.
+        </div>
+      </div>
+    </div>
+  </div>
+
   <header class="nav" id="siteNav" aria-label="Navigation">
     <div class="container nav-inner">
       <a class="brand" href="#top" aria-label="Zur Startseite">
@@ -452,12 +591,12 @@
 
       <nav class="nav-links" aria-label="Sektionen">
         <a href="#produkte">Produkte</a>
-        <a href="#kontakt">Kontakt</a>
+        <a href="formular.html">Gratis Dose</a>
+        <a href="impressum.html">Impressum</a>
       </nav>
     </div>
   </header>
 
-  <!-- ✅ Progress Dots (click centers the flavour on screen) -->
   <nav class="progress" aria-label="Produkt Navigation">
     <a href="#f1" data-accent="var(--berry)"><span class="dot"></span><span>01</span></a>
     <a href="#f2" data-accent="var(--rasp)"><span class="dot"></span><span>02</span></a>
@@ -467,7 +606,6 @@
   </nav>
 
   <main>
-    <!-- HERO -->
     <section class="hero">
       <div class="container hero-grid">
         <div>
@@ -475,15 +613,15 @@
           <h1>STNG Pouches</h1>
           <p class="lead">
             5 Geschmacksrichtungen. Cleanes Design. Intensiver Geschmack.
-            Scroll runter und entdecke alle Sorten.
+            Scroll runter und entdecke jede Sorte — abwechselnd von links und rechts in die Mitte.
           </p>
 
           <div class="hero-cta">
             <a class="btn primary" href="#produkte">Alle Sorten ansehen</a>
+            <a class="btn" href="formular.html">Gratis Dose (März)</a>
           </div>
         </div>
 
-        <!-- ✅ nur Bild, kein Rahmen -->
         <div class="hero-img-wrap" aria-label="Alle Sorten">
           <img class="hero-img" src="Hero.png" alt="STNG Pouches – alle 5 Sorten" />
         </div>
@@ -492,12 +630,9 @@
 
     <div class="divider" role="separator"></div>
 
-    <!-- FLAVORS -->
     <section id="produkte" class="flavors">
       <div class="container">
-
-        <!-- 1: RIGHT (75300) -->
-        <article class="flavor right" id="f1" data-step="1">
+        <article class="flavor right" id="f1">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -511,7 +646,6 @@
                 </ul>
               </div>
             </div>
-
             <div class="product-col">
               <div class="product-panel reveal" style="--accent: var(--berry);" data-accent>
                 <div class="panel-inner">
@@ -531,8 +665,7 @@
           </div>
         </article>
 
-        <!-- 2: LEFT (75301) -->
-        <article class="flavor left" id="f2" data-step="2">
+        <article class="flavor left" id="f2">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -546,7 +679,6 @@
                 </ul>
               </div>
             </div>
-
             <div class="product-col">
               <div class="product-panel reveal" style="--accent: var(--rasp);" data-accent>
                 <div class="panel-inner">
@@ -566,8 +698,7 @@
           </div>
         </article>
 
-        <!-- 3: RIGHT (75302) -->
-        <article class="flavor right" id="f3" data-step="3">
+        <article class="flavor right" id="f3">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -581,7 +712,6 @@
                 </ul>
               </div>
             </div>
-
             <div class="product-col">
               <div class="product-panel reveal" style="--accent: var(--mint);" data-accent>
                 <div class="panel-inner">
@@ -601,8 +731,7 @@
           </div>
         </article>
 
-        <!-- 4: LEFT (75303) -->
-        <article class="flavor left" id="f4" data-step="4">
+        <article class="flavor left" id="f4">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -616,7 +745,6 @@
                 </ul>
               </div>
             </div>
-
             <div class="product-col">
               <div class="product-panel reveal" style="--accent: var(--cola);" data-accent>
                 <div class="panel-inner">
@@ -636,8 +764,7 @@
           </div>
         </article>
 
-        <!-- 5: RIGHT (75304) -->
-        <article class="flavor right" id="f5" data-step="5">
+        <article class="flavor right" id="f5">
           <div class="flavor-row">
             <div class="info-col">
               <div class="info-panel">
@@ -651,7 +778,6 @@
                 </ul>
               </div>
             </div>
-
             <div class="product-col">
               <div class="product-panel reveal" style="--accent: var(--bubble);" data-accent>
                 <div class="panel-inner">
@@ -670,19 +796,16 @@
             </div>
           </div>
         </article>
-
       </div>
     </section>
-
-    <!-- ✅ QUALITY SECTION REMOVED -->
 
     <footer id="kontakt">
       <div class="container foot">
         <div>© <span id="year"></span> STNG</div>
         <div style="display:flex; gap:14px; flex-wrap:wrap;">
-          <a href="impressum.html">Impressum</a>
-          <a href="formular.html">Gratis Dose</a>
           <a href="#produkte">Produkte</a>
+          <a href="formular.html">Gratis Dose</a>
+          <a href="impressum.html">Impressum</a>
           <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'})">Nach oben</a>
         </div>
       </div>
@@ -713,18 +836,16 @@
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
-    // ✅ Progress dots: click scrolls the section to screen center
+    // Progress dots: click scrolls section to screen center
     const progressLinks = Array.from(document.querySelectorAll(".progress a"));
     const sectionIds = ["f1","f2","f3","f4","f5"];
     const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
-    // apply accent to each dot when active
     progressLinks.forEach((a) => {
       const accent = a.getAttribute("data-accent");
       a.style.setProperty("--accent", accent);
     });
 
-    // click: center section
     progressLinks.forEach(link => {
       link.addEventListener("click", function(e){
         e.preventDefault();
@@ -739,15 +860,12 @@
       });
     });
 
-    // ✅ FIX: Active dot = section that is in the CENTER band of the viewport
     const setActive = (id) => {
       progressLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
     };
 
     const centerObserver = new IntersectionObserver((entries) => {
-      // entries can trigger multiple at once; pick the one closest to viewport center
       const centerY = window.innerHeight / 2;
-
       const visible = entries
         .filter(e => e.isIntersecting)
         .map(e => ({
@@ -759,12 +877,62 @@
       if (visible?.id) setActive(visible.id);
     }, {
       threshold: 0,
-      // "active zone" around the middle of the screen
       rootMargin: "-45% 0px -45% 0px"
     });
 
     sections.forEach(s => centerObserver.observe(s));
     setActive("f1");
+
+    /* ===========================
+       ✅ AGE GATE LOGIC
+       =========================== */
+    const agegate = document.getElementById("agegate");
+    const btnYes = document.getElementById("btnYes");
+    const btnNo = document.getElementById("btnNo");
+    const blockedMsg = document.getElementById("blockedMsg");
+
+    const KEY = "stng_age_ok_v1";
+
+    function openAgegate(){
+      agegate.classList.add("show");
+      document.body.classList.add("modal-open");
+    }
+    function closeAgegate(){
+      agegate.classList.remove("show");
+      document.body.classList.remove("modal-open");
+    }
+
+    // If already confirmed -> no popup
+    const saved = localStorage.getItem(KEY);
+    if (saved !== "yes") openAgegate();
+
+    btnYes.addEventListener("click", () => {
+      localStorage.setItem(KEY, "yes");
+      closeAgegate(); // "Ja" => weiter zur Startseite (Seite wird freigegeben)
+    });
+
+    btnNo.addEventListener("click", () => {
+      // "Nein" => blockieren, nicht weiter
+      localStorage.removeItem(KEY);
+      blockedMsg.classList.add("show");
+      btnYes.disabled = true;
+      btnNo.disabled = true;
+
+      // optional: alle Links/Scroll blockieren
+      document.addEventListener("click", (e) => {
+        const t = e.target.closest("a, button");
+        if (!t) return;
+        e.preventDefault();
+        e.stopPropagation();
+      }, true);
+    });
+
+    // Prevent closing by clicking outside / ESC (explicit choice required)
+    document.addEventListener("keydown", (e) => {
+      if (agegate.classList.contains("show") && e.key === "Escape") {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
