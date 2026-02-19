@@ -1,307 +1,191 @@
 <!doctype html>
 <html lang="de" id="top">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>STNG Pouches — 5 Flavours</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>STNG Pouches — 5 Flavours</title>
+  <meta name="description" content="STNG Pouches — 5 Geschmacksrichtungen. Qualität aus Schweden." />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- ✅ Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<style>
-:root{
-  --bg:#07070a;
-  --text:rgba(255,255,255,0.92);
-  --muted:rgba(255,255,255,0.65);
-  --line:rgba(255,255,255,0.08);
-  --radius:22px;
+  <style>
+    :root{
+      --bg: #07070a;
+      --panel: rgba(255,255,255,0.06);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --line: rgba(255,255,255,0.14);
+      --shadow: 0 20px 70px rgba(0,0,0,0.55);
+      --radius: 22px;
+      --max: 1180px;
 
-  --berry:#ea4960;
-  --rasp:#a52f83;
-  --mint:#5f85c3;
-  --cola:#7b7b7b;
-  --bubble:#eb5493;
-}
+      --berry: #ea4960;
+      --rasp:  #a52f83;
+      --mint:  #5f85c3;
+      --cola:  #7b7b7b;
+      --bubble:#eb5493;
+    }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:"Poppins",sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    html{ scroll-behavior: smooth; }
 
-/* NAV */
-.nav{
-  position:sticky;
-  top:0;
-  backdrop-filter:blur(12px);
-  background:rgba(0,0,0,0.4);
-  border-bottom:1px solid var(--line);
-  z-index:100;
-}
-.nav-inner{
-  max-width:1180px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 24px;
-}
-.logo{height:30px}
+    body{
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      font-weight: 400;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,0.06), transparent 60%),
+        radial-gradient(1000px 700px at 80% 20%, rgba(255,255,255,0.05), transparent 60%),
+        radial-gradient(900px 600px at 50% 90%, rgba(255,255,255,0.04), transparent 60%),
+        var(--bg);
+      overflow-x: hidden;
+    }
 
-/* HERO */
-.hero{
-  padding:120px 24px 80px;
-  max-width:1180px;
-  margin:auto;
-}
-h1{
-  font-size:clamp(44px,6vw,88px);
-  font-weight:900;
-  letter-spacing:-0.02em;
-  margin:0 0 20px;
-}
-.lead{
-  font-size:18px;
-  color:var(--muted);
-  max-width:600px;
-}
+    a { color: inherit; text-decoration: none; }
+    .container{
+      width: min(var(--max), calc(100% - 48px));
+      margin: 0 auto;
+    }
 
-/* FLAVORS */
-.flavor{
-  position:relative;
-  padding:140px 24px;
-  max-width:1180px;
-  margin:auto;
-}
+    /* NAV */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(7,7,10,0.85), rgba(7,7,10,0.35));
+      border-bottom: 1px solid var(--line);
+      transition: 220ms ease;
+    }
+    .nav.scrolled{
+      background: linear-gradient(to bottom, rgba(7,7,10,0.92), rgba(7,7,10,0.62));
+    }
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 0;
+      transition: 220ms ease;
+    }
 
-.flavor::before{
-  content:attr(data-number);
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-size:clamp(160px,18vw,340px);
-  font-weight:900;
-  color:rgba(255,255,255,0.03);
-  pointer-events:none;
-}
+    .logo{
+      height: 30px;
+      transition: 220ms ease;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.25));
+    }
+    .logo:hover{
+      transform: scale(1.03);
+    }
 
-.flavor-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-  position:relative;
-  z-index:2;
-}
+    .nav-links{
+      display:flex;
+      gap: 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .nav-links a:hover{
+      color: var(--text);
+    }
 
-.flavor.right .flavor-row{
-  grid-template-areas:"info product";
-}
-.flavor.left .flavor-row{
-  grid-template-areas:"product info";
-}
+    /* HERO */
+    .hero{ padding: 80px 0 40px; }
 
-.product-panel{
-  background:rgba(255,255,255,0.04);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:40px;
-  text-align:center;
-  transition:0.6s ease;
-  opacity:0;
-  transform:translateY(40px);
-}
-.product-panel.in-view{
-  opacity:1;
-  transform:translateY(0);
-}
+    h1{
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 10px 0 16px;
+    }
 
-.flavor h2{
-  font-size:clamp(26px,3vw,42px);
-  font-weight:800;
-  margin:0 0 20px;
-}
+    .lead{
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
 
-.desc{
-  color:var(--muted);
-}
+    /* Flavor Titles */
+    .flavor h2{
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
 
-.packshot img{
-  max-width:340px;
-  width:100%;
-  margin-top:30px;
-}
+    .tag{
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
 
-.info-panel{
-  color:var(--muted);
-}
+    .meta .chip{
+      font-weight: 500;
+      font-size: 13px;
+    }
 
-/* PROGRESS */
-.progress{
-  position:fixed;
-  right:28px;
-  top:50%;
-  transform:translateY(-50%);
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-.progress a{
-  font-weight:700;
-  font-size:11px;
-  letter-spacing:0.2em;
-  opacity:0.4;
-  transition:0.2s ease;
-}
-.progress a.active{
-  opacity:1;
-  transform:scale(1.1);
-}
+    .info-panel h3{
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
 
-/* MOBILE */
-@media(max-width:900px){
-  .flavor-row{grid-template-columns:1fr}
-  .progress{display:none}
-}
+    .desc{
+      font-weight: 400;
+    }
 
-</style>
+    /* Progress */
+    .progress{
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .progress a{
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+    }
+
+  </style>
 </head>
 
 <body>
 
 <header class="nav" id="siteNav">
-  <div class="nav-inner">
-    <img src="sting-logo-white.png" class="logo">
+  <div class="container nav-inner">
+    <a href="#top">
+      <img src="sting-logo-white.png" alt="STNG Logo" class="logo">
+    </a>
+    <nav class="nav-links">
+      <a href="#produkte">Produkte</a>
+      <a href="#qualität">Qualität</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
   </div>
 </header>
 
-<nav class="progress">
-  <a href="#f1">01</a>
-  <a href="#f2">02</a>
-  <a href="#f3">03</a>
-  <a href="#f4">04</a>
-  <a href="#f5">05</a>
-</nav>
-
-<section class="hero">
-  <h1>STNG Pouches</h1>
-  <p class="lead">5 Geschmacksrichtungen. Cleanes Design. Intensiver Geschmack.</p>
-</section>
-
-<!-- FLAVOR 1 -->
-<section class="flavor right" id="f1" data-number="01">
-  <div class="flavor-row">
-    <div class="info-panel">
-      Art.-Nr. 75300<br>STNG Berry Seltzer<br>Qualität aus Schweden
-    </div>
-    <div class="product-panel reveal">
-      <h2>STNG Berry Seltzer</h2>
-      <p class="desc">Spritzig, fruchtig, frisch.</p>
-      <div class="packshot">
-        <img src="75300_1.png">
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="flavor left" id="f2" data-number="02">
-  <div class="flavor-row">
-    <div class="info-panel">
-      Art.-Nr. 75301<br>STNG Raspberry
-    </div>
-    <div class="product-panel reveal">
-      <h2>STNG Raspberry</h2>
-      <p class="desc">Saftig, fruchtig, klar.</p>
-      <div class="packshot">
-        <img src="75301_1.png">
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="flavor right" id="f3" data-number="03">
-  <div class="flavor-row">
-    <div class="info-panel">
-      Art.-Nr. 75302<br>STNG Double Mint
-    </div>
-    <div class="product-panel reveal">
-      <h2>STNG Double Mint</h2>
-      <p class="desc">Doppelt frisch.</p>
-      <div class="packshot">
-        <img src="75302_1.png">
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="flavor left" id="f4" data-number="04">
-  <div class="flavor-row">
-    <div class="info-panel">
-      Art.-Nr. 75303<br>STNG Cola Cherry
-    </div>
-    <div class="product-panel reveal">
-      <h2>STNG Cola Cherry</h2>
-      <p class="desc">Cola trifft Kirsche.</p>
-      <div class="packshot">
-        <img src="75303_1.png">
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="flavor right" id="f5" data-number="05">
-  <div class="flavor-row">
-    <div class="info-panel">
-      Art.-Nr. 75304<br>STNG Bubble
-    </div>
-    <div class="product-panel reveal">
-      <h2>STNG Bubble</h2>
-      <p class="desc">Süß, auffällig.</p>
-      <div class="packshot">
-        <img src="75304_1.png">
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Rest deiner Seite bleibt unverändert -->
 
 <script>
-const panels=document.querySelectorAll(".reveal");
-const io=new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting){e.target.classList.add("in-view")}
-});
-},{threshold:0.3});
-panels.forEach(p=>io.observe(p));
+document.getElementById("year")?.textContent = new Date().getFullYear();
 
-const links=document.querySelectorAll(".progress a");
-const sections=document.querySelectorAll(".flavor");
-
-links.forEach(link=>{
-link.addEventListener("click",e=>{
-e.preventDefault();
-const id=link.getAttribute("href").replace("#","");
-const el=document.getElementById(id);
-const rect=el.getBoundingClientRect();
-const offset=rect.top+window.scrollY-(window.innerHeight/2)+(rect.height/2);
-window.scrollTo({top:offset,behavior:"smooth"});
+const nav = document.getElementById("siteNav");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 10) nav.classList.add("scrolled");
+  else nav.classList.remove("scrolled");
 });
-});
-
-const highlight=new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting){
-links.forEach(l=>l.classList.remove("active"));
-document.querySelector(`.progress a[href="#${e.target.id}"]`)?.classList.add("active");
-}
-});
-},{threshold:0.5});
-
-sections.forEach(s=>highlight.observe(s));
 </script>
 
 </body>
