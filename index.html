@@ -8,7 +8,6 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- ✅ Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
@@ -80,7 +79,6 @@
       gap: 10px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      font-family: "Montserrat", sans-serif;
       font-weight: 800;
     }
 
@@ -138,7 +136,6 @@
     }
     h1{
       margin: 12px 0 12px;
-      font-family: "Montserrat", sans-serif;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       line-height: 0.95;
@@ -165,12 +162,12 @@
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.04);
       color: var(--text);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 14px;
       transition: 160ms ease;
       cursor: pointer;
       user-select:none;
-      font-family: "Montserrat", sans-serif;
+      font-family: inherit;
     }
     .btn:hover{
       background: rgba(255,255,255,0.07);
@@ -265,8 +262,7 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.72);
-      font-weight: 700;
-      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
     }
     .tag .pill{
       width: 10px; height: 10px; border-radius: 999px;
@@ -276,7 +272,6 @@
 
     .flavor h2{
       margin: 0;
-      font-family: "Montserrat", sans-serif;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       font-size: clamp(22px, 3.2vw, 34px);
@@ -291,7 +286,7 @@
       margin-top: 4px;
       color: rgba(255,255,255,0.72);
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
     }
     .chip{
       border: 1px solid var(--line);
@@ -335,8 +330,7 @@
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: rgba(255,255,255,0.78);
-      font-family: "Montserrat", sans-serif;
-      font-weight: 800;
+      font-weight: 900;
     }
     .info-panel p{
       margin: 0 0 12px;
@@ -375,7 +369,7 @@
       padding: 26px 0;
       color: rgba(255,255,255,0.62);
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
     }
     .foot{
       display:flex;
@@ -412,8 +406,7 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       transition: 160ms ease;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 700;
+      font-weight: 800;
     }
     .progress a:hover{
       color: rgba(255,255,255,0.9);
@@ -438,6 +431,7 @@
     }
 
     @media (max-width: 920px){
+      .container{ width: min(var(--max), calc(100% - 32px)); }
       .hero-grid{ grid-template-columns: 1fr; }
       .flavor-row{
         grid-template-columns: 1fr;
@@ -451,7 +445,7 @@
     }
 
     /* ===========================
-       ✅ AGE GATE POPUP (Modal)
+       ✅ AGE GATE POPUP (Mobile fix)
        =========================== */
     .agegate{
       position: fixed;
@@ -460,20 +454,22 @@
       display:none;
       align-items:center;
       justify-content:center;
-      padding: 18px;
+      padding: 14px;
       background: rgba(0,0,0,0.72);
       backdrop-filter: blur(10px);
     }
     .agegate.show{ display:flex; }
+
     .agegate-card{
-      width: min(720px, 100%);
+      width: min(680px, 100%);
+      max-width: 680px;
       border-radius: 22px;
       border: 1px solid rgba(255,255,255,0.16);
       background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
       box-shadow: 0 20px 70px rgba(0,0,0,0.65);
       overflow:hidden;
       position: relative;
-      padding: 22px;
+      padding: 18px;
     }
     .agegate-card::before{
       content:"";
@@ -484,12 +480,13 @@
       pointer-events:none;
     }
     .agegate-inner{ position: relative; }
+
     .agegate-top{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap: 14px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .agegate-title{
       margin: 0;
@@ -514,6 +511,7 @@
       line-height: 1.7;
       color: rgba(255,255,255,0.78);
       margin: 14px 0 16px;
+      font-weight: 600;
     }
     .warning strong{ color: rgba(255,255,255,0.92); }
 
@@ -534,7 +532,7 @@
       color: rgba(255,255,255,0.82);
       font-size: 13px;
       line-height: 1.7;
-      font-weight: 600;
+      font-weight: 650;
     }
     .blocked.show{ display:block; }
 
@@ -543,7 +541,21 @@
       color: rgba(255,255,255,0.55);
       font-size: 12px;
       line-height: 1.6;
-      font-weight: 600;
+      font-weight: 650;
+    }
+
+    @media (max-width: 420px){
+      .agegate{ padding: 10px; }
+      .agegate-card{
+        padding: 14px;
+        border-radius: 18px;
+      }
+      .agegate-title{ font-size: 16px; }
+      .agegate-actions{ gap: 8px; }
+      .agegate-actions .btn{
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -563,7 +575,7 @@
         </p>
 
         <div class="warning">
-          Dieses Produkt enthält Nikotin, einen Stoff, der sehr stark abhängig macht.
+          <strong>Offizielle Warnung (AT):</strong> Dieses Produkt enthält Nikotin, einen Stoff, der sehr stark abhängig macht.
         </div>
 
         <div class="agegate-actions">
@@ -902,23 +914,20 @@
       document.body.classList.remove("modal-open");
     }
 
-    // If already confirmed -> no popup
     const saved = localStorage.getItem(KEY);
     if (saved !== "yes") openAgegate();
 
     btnYes.addEventListener("click", () => {
       localStorage.setItem(KEY, "yes");
-      closeAgegate(); // "Ja" => weiter zur Startseite (Seite wird freigegeben)
+      closeAgegate();
     });
 
     btnNo.addEventListener("click", () => {
-      // "Nein" => blockieren, nicht weiter
       localStorage.removeItem(KEY);
       blockedMsg.classList.add("show");
       btnYes.disabled = true;
       btnNo.disabled = true;
 
-      // optional: alle Links/Scroll blockieren
       document.addEventListener("click", (e) => {
         const t = e.target.closest("a, button");
         if (!t) return;
@@ -927,7 +936,6 @@
       }, true);
     });
 
-    // Prevent closing by clicking outside / ESC (explicit choice required)
     document.addEventListener("keydown", (e) => {
       if (agegate.classList.contains("show") && e.key === "Escape") {
         e.preventDefault();
