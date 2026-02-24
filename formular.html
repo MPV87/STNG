@@ -1,28 +1,80 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>STNG Aktion</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
+  body{
+    margin: 0;
+    background: #0b0f1a;
+    padding: 20px;
+    font-family: "Montserrat", Arial, sans-serif;
+    color:#fff;
+  }
+
   .stng-form{
     max-width: 520px;
     margin: 40px auto;
-    padding: 30px;
+    padding: 28px;
     border-radius: 18px;
     background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
     backdrop-filter: blur(10px);
     box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-    font-family: "Montserrat", Arial, sans-serif;
-    color: #fff;
+  }
+
+  .form-header{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 10px;
+    margin-bottom: 18px;
+    text-align:center;
+  }
+
+  .form-logo{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.03);
+    transition: 180ms ease;
+  }
+  .form-logo:hover{
+    transform: translateY(-1px);
+    border-color: rgba(255,255,255,0.22);
+    box-shadow: 0 0 26px rgba(0,240,255,0.18);
+  }
+  .form-logo img{
+    height: 26px;
+    width: auto;
+    display:block;
+    filter: drop-shadow(0 0 12px rgba(255,255,255,0.18));
   }
 
   .stng-form h2{
-    margin-bottom: 20px;
+    margin: 0;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    font-weight: 900;
+    font-size: 18px;
+  }
+
+  .form-intro{
+    margin: 0;
+    color: rgba(255,255,255,0.78);
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 600;
+    max-width: 50ch;
   }
 
   .form-group{
@@ -50,9 +102,7 @@
     appearance: none;
   }
 
-  .form-group select{
-    cursor: pointer;
-  }
+  .form-group select{ cursor: pointer; }
 
   .form-group input:focus,
   .form-group select:focus{
@@ -63,13 +113,19 @@
 
   .checkbox{
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
   }
-
   .checkbox input{
     width: auto;
-    transform: translateY(1px);
+    transform: translateY(2px);
+    margin-top: 2px;
+  }
+  .checkbox label{
+    margin: 0;
+    font-weight: 650;
+    opacity: 0.9;
+    line-height: 1.35;
   }
 
   button{
@@ -97,11 +153,21 @@
     line-height: 1.45;
   }
 
-  body{
-    margin: 0;
-    background: #0b0f1a;
-    padding: 20px;
-    font-family: "Montserrat", Arial, sans-serif;
+  .form-links{
+    margin-top: 10px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .form-links a{
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: 160ms ease;
+  }
+  .form-links a:hover{
+    color: rgba(255,255,255,0.95);
   }
 </style>
 </head>
@@ -110,7 +176,18 @@
 
 <form action="mailto:office@kp-plattner.at?subject=STNG-Aktion" method="post" enctype="text/plain" class="stng-form">
 
-  <h2>STNG Aktion</h2>
+  <div class="form-header">
+    <a class="form-logo" href="index.html" aria-label="Zur Startseite">
+      <img src="sting-logo-white.png" alt="STNG Logo">
+    </a>
+
+    <h2>Gratis-Dose Aktion</h2>
+
+    <p class="form-intro">
+      Sichere dir im Aktionszeitraum eine <strong>Gratis STNG Dose</strong>. Wähle deinen bevorzugten Geschmack
+      und gib deine Versanddaten ein — wir senden dir die Dose kostenlos zu (solange der Vorrat reicht).
+    </p>
+  </div>
 
   <div class="form-group">
     <label for="name">Vor- & Nachname *</label>
@@ -135,6 +212,13 @@
   </div>
 
   <div class="form-group">
+    <label for="country">Land *</label>
+    <select id="country" name="Land" required>
+      <option selected>Österreich</option>
+    </select>
+  </div>
+
+  <div class="form-group">
     <label for="address">Adresse *</label>
     <input type="text" id="address" name="Adresse" required>
   </div>
@@ -142,13 +226,6 @@
   <div class="form-group">
     <label for="zip">PLZ / Ort *</label>
     <input type="text" id="zip" name="PLZ / Ort" required>
-  </div>
-  
-  <div class="form-group">
-    <label for="country">Land *</label>
-    <select id="country" name="Land" required>
-      <option selected>Österreich</option>
-    </select>
   </div>
 
   <div class="form-group checkbox">
@@ -158,7 +235,9 @@
 
   <div class="form-group checkbox">
     <input type="checkbox" id="privacy" name="Datenschutz akzeptiert" value="Ja" required>
-    <label for="privacy">Ich akzeptiere die Datenschutzbestimmungen *</label>
+    <label for="privacy">
+      Ich akzeptiere die Datenschutzbestimmungen *
+    </label>
   </div>
 
   <button type="submit">Jetzt an Aktion teilnehmen</button>
@@ -166,8 +245,12 @@
   <p class="form-legal">
     *Aktion gültig ab sofort bis 27. März 2026. Versand ausschließlich an Personen über 18 Jahre.
     Aktion gültig nur solange der Vorrat reicht. Die bevorzugte Dose wird je nach Verfügbarkeit versendet,
-    ansonsten wird ein anderer Geschmack geliefert. Der Rechtsweg ist ausgeschlossen. Einmalige Teilnahme pro Haushalt.
+    ansonsten wird ein anderer Geschmack geliefert. Der Rechtsweg ist ausgeschlossen.
   </p>
+
+  <div class="form-links">
+    <a href="datenschutz.html">Datenschutz</a>
+  </div>
 
 </form>
 
