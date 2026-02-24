@@ -14,13 +14,15 @@
     background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
     backdrop-filter: blur(10px);
     box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-    font-family: Arial, sans-serif;
+    font-family: "Montserrat", Arial, sans-serif;
     color: #fff;
   }
 
   .stng-form h2{
     margin-bottom: 20px;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   .form-group{
@@ -33,39 +35,50 @@
     font-size: 14px;
     margin-bottom: 6px;
     opacity: 0.9;
+    font-weight: 700;
   }
 
-  .form-group input{
+  .form-group input,
+  .form-group select{
     padding: 10px 12px;
-    border-radius: 8px;
+    border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.2);
     background: rgba(255,255,255,0.08);
     color: #fff;
     font-size: 14px;
+    font-family: inherit;
+    appearance: none;
   }
 
-  .form-group input:focus{
+  .form-group select{
+    cursor: pointer;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus{
     outline: none;
     border-color: #00f0ff;
+    box-shadow: 0 0 0 3px rgba(0,240,255,0.20);
   }
 
   .checkbox{
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
 
   .checkbox input{
     width: auto;
+    transform: translateY(1px);
   }
 
   button{
     width: 100%;
     padding: 12px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 900;
     cursor: pointer;
     background: linear-gradient(90deg, #00f0ff, #00ff99);
     color: #000;
@@ -79,21 +92,24 @@
 
   .form-legal{
     font-size: 11px;
-    opacity: 0.6;
+    opacity: 0.65;
     margin-top: 14px;
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   body{
+    margin: 0;
     background: #0b0f1a;
+    padding: 20px;
+    font-family: "Montserrat", Arial, sans-serif;
   }
 </style>
 </head>
 
 <body>
 
-<form action="mailto:office@kp-plattner.at" method="post" enctype="text/plain" class="stng-form">
-  
+<form action="mailto:office@kp-plattner.at?subject=STNG-Aktion" method="post" enctype="text/plain" class="stng-form">
+
   <h2>STNG Aktion</h2>
 
   <div class="form-group">
@@ -107,32 +123,50 @@
   </div>
 
   <div class="form-group">
+    <label for="dose">Gewünschte Dose *</label>
+    <select id="dose" name="Gewünschte Dose" required>
+      <option value="" disabled selected>Bitte auswählen …</option>
+      <option>STNG Berry Seltzer</option>
+      <option>STNG Raspberry</option>
+      <option>STNG Double Mint</option>
+      <option>STNG Cola Cherry</option>
+      <option>STNG Bubble</option>
+    </select>
+  </div>
+
+  <div class="form-group">
     <label for="address">Adresse *</label>
     <input type="text" id="address" name="Adresse" required>
   </div>
 
   <div class="form-group">
     <label for="zip">PLZ / Ort *</label>
-    <input type="text" id="zip" name="PLZ-Ort" required>
+    <input type="text" id="zip" name="PLZ / Ort" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="country">Land *</label>
+    <select id="country" name="Land" required>
+      <option selected>Österreich</option>
+    </select>
   </div>
 
   <div class="form-group checkbox">
-    <input type="checkbox" id="age" required>
+    <input type="checkbox" id="age" name="18+ bestätigt" value="Ja" required>
     <label for="age">Ich bestätige, dass ich über 18 Jahre alt bin *</label>
   </div>
 
   <div class="form-group checkbox">
-    <input type="checkbox" id="privacy" required>
+    <input type="checkbox" id="privacy" name="Datenschutz akzeptiert" value="Ja" required>
     <label for="privacy">Ich akzeptiere die Datenschutzbestimmungen *</label>
   </div>
-
-  <input type="hidden" name="subject" value="STNG-Aktion">
 
   <button type="submit">Jetzt an Aktion teilnehmen</button>
 
   <p class="form-legal">
     *Aktion gültig ab sofort bis 27. März 2026. Versand ausschließlich an Personen über 18 Jahre.
-    Aktion gültig nur solange der Vorrat reicht. Der Rechtsweg ist ausgeschlossen.
+    Aktion gültig nur solange der Vorrat reicht. Die bevorzugte Dose wird je nach Verfügbarkeit versendet,
+    ansonsten wird ein anderer Geschmack geliefert. Der Rechtsweg ist ausgeschlossen. Einmalige Teilnahme pro Haushalt.
   </p>
 
 </form>
