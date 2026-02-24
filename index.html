@@ -14,9 +14,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- ... danach kommt dein <style> ... -->
-
-
   <style>
     :root{
       --bg: #07070a;
@@ -229,16 +226,16 @@
     }
 
     .product-panel{
-    border-radius: var(--radius);
-    border: 3px solid var(--line);   /* sichtbare Outline */
-    background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-    box-shadow: 0 25px 80px rgba(0,0,0,0.6);
-    overflow: hidden;
-    position: relative;
+      border-radius: var(--radius);
+      border: 3px solid var(--line);   /* sichtbare Outline */
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+      overflow: hidden;
+      position: relative;
 
-    opacity: 0;
-    transform: translateX(var(--from, -80px)) scale(0.98);
-    transition: 700ms cubic-bezier(.2,.8,.2,1);
+      opacity: 0;
+      transform: translateX(var(--from, -80px)) scale(0.98);
+      transition: 700ms cubic-bezier(.2,.8,.2,1);
     }
 
     .product-panel.in-view{
@@ -365,16 +362,13 @@
     .flavor.right .product-panel{ --from:  110px; }
 
     .product-panel[data-accent]{
-    border-width: 3px;
-    border-color: color-mix(in srgb, var(--accent) 80%, white 10%);
-
-    box-shadow:
-    0 30px 90px rgba(0,0,0,0.7),
-    0 0 180px color-mix(in srgb, var(--accent) 70%, transparent),
-    0 0 60px color-mix(in srgb, var(--accent) 90%, transparent);
+      border-width: 3px;
+      border-color: color-mix(in srgb, var(--accent) 80%, white 10%);
+      box-shadow:
+        0 30px 90px rgba(0,0,0,0.7),
+        0 0 180px color-mix(in srgb, var(--accent) 70%, transparent),
+        0 0 60px color-mix(in srgb, var(--accent) 90%, transparent);
     }
-``
-
 
     footer{
       border-top: 1px solid var(--line);
@@ -577,6 +571,117 @@
         width: 100%;
         justify-content: center;
       }
+    }
+
+    /* =========================================
+       ✅ GRATIS-DOSE CTA UPGRADE (auto for formular.html)
+       ========================================= */
+
+    /* Ziel: alle Buttons/Links die zu formular.html führen */
+    a[href="formular.html"].btn,
+    .nav-links a[href="formular.html"],
+    footer a[href="formular.html"]{
+      --glowA: rgba(0, 240, 255, 0.85);
+      --glowB: rgba(0, 255, 153, 0.65);
+      --ring:  rgba(255,255,255,0.22);
+
+      position: relative;
+      overflow: hidden;
+
+      border-color: rgba(255,255,255,0.22);
+      background:
+        radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,0.20), rgba(255,255,255,0) 55%),
+        linear-gradient(90deg, rgba(0,240,255,0.22), rgba(0,255,153,0.18));
+      color: rgba(255,255,255,0.96);
+
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.10) inset,
+        0 12px 34px rgba(0,0,0,0.50),
+        0 0 34px var(--glowA),
+        0 0 64px var(--glowB);
+
+      animation: ctaFloat 3.8s ease-in-out infinite;
+    }
+
+    /* Glow-Halo hinter dem Button */
+    a[href="formular.html"].btn::before,
+    .nav-links a[href="formular.html"]::before,
+    footer a[href="formular.html"]::before{
+      content:"";
+      position:absolute;
+      inset:-18px;
+      background:
+        radial-gradient(closest-side, rgba(0,240,255,0.28), rgba(0,240,255,0) 65%),
+        radial-gradient(closest-side, rgba(0,255,153,0.24), rgba(0,255,153,0) 70%);
+      filter: blur(10px);
+      opacity: .95;
+      pointer-events:none;
+    }
+
+    /* Shine-Sweep */
+    a[href="formular.html"].btn::after,
+    .nav-links a[href="formular.html"]::after,
+    footer a[href="formular.html"]::after{
+      content:"";
+      position:absolute;
+      top:-20%;
+      left:-60%;
+      width:55%;
+      height:140%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.38), transparent);
+      transform: skewX(-18deg);
+      opacity: 0;
+      pointer-events:none;
+    }
+
+    /* Hover */
+    a[href="formular.html"].btn:hover,
+    .nav-links a[href="formular.html"]:hover,
+    footer a[href="formular.html"]:hover{
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(255,255,255,0.34);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.14) inset,
+        0 20px 50px rgba(0,0,0,0.60),
+        0 0 46px rgba(0,240,255,0.95),
+        0 0 82px rgba(0,255,153,0.80);
+    }
+
+    a[href="formular.html"].btn:hover::after,
+    .nav-links a[href="formular.html"]:hover::after,
+    footer a[href="formular.html"]:hover::after{
+      opacity: 1;
+      animation: ctaShine .85s ease forwards;
+    }
+
+    /* Click */
+    a[href="formular.html"].btn:active,
+    .nav-links a[href="formular.html"]:active,
+    footer a[href="formular.html"]:active{
+      transform: translateY(-1px) scale(0.99);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      a[href="formular.html"].btn,
+      .nav-links a[href="formular.html"],
+      footer a[href="formular.html"]{
+        animation: none;
+      }
+      a[href="formular.html"].btn:hover::after,
+      .nav-links a[href="formular.html"]:hover::after,
+      footer a[href="formular.html"]:hover::after{
+        animation: none;
+      }
+    }
+
+    @keyframes ctaFloat{
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
+    }
+    @keyframes ctaShine{
+      0% { left:-60%; }
+      100% { left:130%; }
     }
   </style>
 </head>
@@ -960,6 +1065,33 @@
       if (agegate.classList.contains("show") && e.key === "Escape") {
         e.preventDefault();
       }
+    });
+
+    /* =========================================
+       ✅ Magnetic Hover for Gratis-Dose CTAs
+       ========================================= */
+    document.querySelectorAll('a[href="formular.html"]').forEach((btn) => {
+      const isCTA = btn.classList.contains('btn') || btn.closest('.nav-links') || btn.closest('footer');
+      if (!isCTA) return;
+
+      let rect = null;
+
+      const move = (e) => {
+        rect = rect || btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        btn.style.transform = `translateY(-4px) translate(${x * 0.08}px, ${y * 0.10}px) scale(1.02)`;
+      };
+
+      const reset = () => {
+        rect = null;
+        btn.style.transform = '';
+      };
+
+      btn.addEventListener('mouseenter', () => rect = btn.getBoundingClientRect());
+      btn.addEventListener('mousemove', move);
+      btn.addEventListener('mouseleave', reset);
     });
   </script>
 </body>
