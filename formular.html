@@ -1,782 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gratis Dose im März — STNG Pouches</title>
-  <meta name="description" content="Im März: 1 kostenlose Dose STNG Pouches sichern (AT)." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STNG Aktion</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  .stng-form{
+    max-width: 520px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
 
-  <style>
-    :root{
-      --bg: #07070a;
-      --panel: rgba(255,255,255,0.06);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.70);
-      --line: rgba(255,255,255,0.14);
-      --shadow: 0 20px 70px rgba(0,0,0,0.55);
-      --radius: 22px;
-      --max: 980px;
-    }
+  .stng-form h2{
+    margin-bottom: 20px;
+    text-align: center;
+  }
 
-    *{ box-sizing: border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,0.06), transparent 60%),
-        radial-gradient(1000px 700px at 80% 20%, rgba(255,255,255,0.05), transparent 60%),
-        radial-gradient(900px 600px at 50% 90%, rgba(255,255,255,0.04), transparent 60%),
-        var(--bg);
-      overflow-x:hidden;
-    }
-    body.modal-open{ overflow:hidden; }
+  .form-group{
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+  }
 
-    a{ color:inherit; text-decoration:none; }
-    .container{
-      width: min(var(--max), calc(100% - 48px));
-      margin: 0 auto;
-    }
+  .form-group label{
+    font-size: 14px;
+    margin-bottom: 6px;
+    opacity: 0.9;
+  }
 
-    header{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(to bottom, rgba(7,7,10,0.85), rgba(7,7,10,0.35));
-      border-bottom: 1px solid var(--line);
-    }
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding: 14px 0;
-    }
-    .logo{
-      height: 28px;
-      width:auto;
-      display:block;
-      opacity: 0.95;
-      transition: 220ms ease;
-      filter: drop-shadow(0 0 12px rgba(255,255,255,0.25));
-    }
-    .logo:hover{
-      transform: translateY(-1px) scale(1.02);
-      opacity: 1;
-      filter:
-        drop-shadow(0 0 18px rgba(255,255,255,0.35))
-        drop-shadow(0 0 34px rgba(255,255,255,0.18));
-    }
+  .form-group input{
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-size: 14px;
+  }
 
-    .nav-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .pill{
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--muted);
-      border: 1px solid transparent;
-      padding: 8px 10px;
-      border-radius: 999px;
-      transition: 160ms ease;
-    }
-    .pill:hover{
-      border-color: var(--line);
-      color: var(--text);
-      background: rgba(255,255,255,0.04);
-    }
+  .form-group input:focus{
+    outline: none;
+    border-color: #00f0ff;
+  }
 
-    main{ padding: 56px 0 64px; }
+  .checkbox{
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
 
-    .kicker{
-      font-size: 12px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    h1{
-      margin: 0 0 14px;
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      line-height: 1.05;
-    }
-    .lead{
-      color: rgba(255,255,255,0.78);
-      font-size: 15px;
-      line-height: 1.8;
-      font-weight: 500;
-      max-width: 70ch;
-      margin: 0 0 18px;
-    }
+  .checkbox input{
+    width: auto;
+  }
 
-    .notice{
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.03);
-      border-radius: 16px;
-      padding: 14px 16px;
-      color: rgba(255,255,255,0.78);
-      font-size: 13px;
-      line-height: 1.7;
-      margin: 18px 0 18px;
-    }
-    .notice strong{ color: rgba(255,255,255,0.92); }
+  button{
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(90deg, #00f0ff, #00ff99);
+    color: #000;
+    transition: 0.3s ease;
+  }
 
-    .countdown-banner{
-      display:none;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(0,0,0,0.20);
-      border-radius: 16px;
-      padding: 12px 14px;
-      margin: 0 0 26px;
-      color: rgba(255,255,255,0.82);
-      font-size: 13px;
-      line-height: 1.7;
-      font-weight: 650;
-    }
-    .countdown-banner.show{ display:block; }
-    .countdown-banner .mono{
-      font-weight: 900;
-      letter-spacing: 0.08em;
-    }
+  button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,255,200,0.4);
+  }
 
-    .card{
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
-      overflow:hidden;
-      position: relative;
-    }
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-60% -40%;
-      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.14), transparent 55%);
-      transform: rotate(12deg);
-      pointer-events:none;
-    }
-    form{ position: relative; }
+  .form-legal{
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 14px;
+    line-height: 1.4;
+  }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    label{
-      display:block;
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.72);
-      font-weight: 700;
-      margin: 0 0 8px;
-    }
-
-    input, select{
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(0,0,0,0.22);
-      color: rgba(255,255,255,0.92);
-      padding: 12px 12px;
-      font-family: inherit;
-      font-weight: 600;
-      outline: none;
-      transition: 160ms ease;
-    }
-    input::placeholder{ color: rgba(255,255,255,0.38); font-weight: 600; }
-    input:focus, select:focus{
-      border-color: rgba(255,255,255,0.28);
-      background: rgba(0,0,0,0.28);
-    }
-    select{
-      appearance: none;
-      background-image:
-        linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.65) 50%),
-        linear-gradient(135deg, rgba(255,255,255,0.65) 50%, transparent 50%);
-      background-position:
-        calc(100% - 18px) calc(50% - 4px),
-        calc(100% - 12px) calc(50% - 4px);
-      background-size: 6px 6px, 6px 6px;
-      background-repeat: no-repeat;
-      padding-right: 36px;
-    }
-
-    .full{ grid-column: 1 / -1; }
-
-    .checks{
-      margin-top: 10px;
-      display:flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .check{
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      color: rgba(255,255,255,0.78);
-      font-size: 13px;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-    .check input{
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      accent-color: rgba(255,255,255,0.9);
-    }
-    .check a{
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    .actions{
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items:center;
-      margin-top: 16px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      font-weight: 800;
-      font-size: 14px;
-      cursor: pointer;
-      transition: 160ms ease;
-      user-select:none;
-      font-family: inherit;
-    }
-    .btn:hover{
-      background: rgba(255,255,255,0.08);
-      transform: translateY(-1px);
-    }
-    .btn.primary{
-      border-color: rgba(255,255,255,0.26);
-      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
-    }
-    .btn:disabled{
-      opacity: 0.45;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .hint{
-      font-size: 12px;
-      color: rgba(255,255,255,0.62);
-      font-weight: 600;
-    }
-
-    .success{
-      display:none;
-      margin-top: 14px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 12px 14px;
-      color: rgba(255,255,255,0.86);
-      font-weight: 600;
-      line-height: 1.6;
-    }
-    .error{
-      display:none;
-      margin-top: 12px;
-      color: #ffb4b4;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    footer{
-      border-top: 1px solid var(--line);
-      padding: 22px 0;
-      color: rgba(255,255,255,0.62);
-      font-size: 13px;
-      font-weight: 500;
-    }
-    .foot{
-      display:flex;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 920px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-
-    /* ===========================
-       ✅ COUNTDOWN POPUP (locked)
-       =========================== */
-    .modal{
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      background: rgba(0,0,0,0.74);
-      backdrop-filter: blur(10px);
-    }
-    .modal.show{ display:flex; }
-
-    .modal-card{
-      width: min(820px, 100%);
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-      box-shadow: 0 20px 70px rgba(0,0,0,0.65);
-      overflow:hidden;
-      position: relative;
-      padding: 22px;
-    }
-    .modal-card::before{
-      content:"";
-      position:absolute;
-      inset:-60% -40%;
-      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.14), transparent 55%);
-      transform: rotate(12deg);
-      pointer-events:none;
-    }
-    .modal-inner{ position: relative; }
-
-    .modal-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      margin-bottom: 10px;
-    }
-    .modal-title{
-      margin: 0;
-      font-size: 16px;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.92);
-    }
-    .modal-sub{
-      margin: 0 0 14px;
-      color: rgba(255,255,255,0.80);
-      font-size: 14px;
-      line-height: 1.75;
-      font-weight: 600;
-    }
-
-    /* Timer with flip-ish animation */
-    .timer{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin: 14px 0 12px;
-    }
-    .tbox{
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.22);
-      border-radius: 18px;
-      padding: 12px 10px;
-      text-align:center;
-      position: relative;
-      overflow:hidden;
-      transform: translateZ(0);
-    }
-    .tbox::after{
-      content:"";
-      position:absolute;
-      left:-40%;
-      top:-120%;
-      width: 180%;
-      height: 220%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.10), transparent 55%);
-      transform: rotate(12deg);
-      pointer-events:none;
-    }
-    .tval{
-      font-weight: 900;
-      font-size: clamp(22px, 5vw, 36px);
-      letter-spacing: 0.08em;
-      line-height: 1.05;
-      position: relative;
-    }
-    .tval.flip{
-      animation: flip 520ms cubic-bezier(.2,.8,.2,1);
-    }
-    @keyframes flip{
-      0%   { transform: translateY(0) rotateX(0deg); opacity: 1; }
-      40%  { transform: translateY(-6px) rotateX(45deg); opacity: 0.85; }
-      100% { transform: translateY(0) rotateX(0deg); opacity: 1; }
-    }
-    .tlab{
-      margin-top: 6px;
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.70);
-      font-weight: 800;
-      position: relative;
-    }
-
-    .modal-note{
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.03);
-      border-radius: 16px;
-      padding: 12px 14px;
-      color: rgba(255,255,255,0.78);
-      font-size: 13px;
-      line-height: 1.7;
-      margin-top: 12px;
-    }
-    .modal-note strong{ color: rgba(255,255,255,0.92); }
-
-    .modal-actions{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: 14px;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .small{
-      font-size: 12px;
-      color: rgba(255,255,255,0.60);
-      font-weight: 650;
-      line-height: 1.6;
-      margin-top: 10px;
-    }
-
-    .btn.linkish{
-      background: rgba(255,255,255,0.04);
-    }
-  </style>
+  body{
+    background: #0b0f1a;
+  }
+</style>
 </head>
 
 <body>
-  <!-- ✅ Countdown Modal (stays until start; only exit is "Zurück") -->
-  <div class="modal" id="countdownModal" role="dialog" aria-modal="true" aria-labelledby="cdTitle">
-    <div class="modal-card">
-      <div class="modal-inner">
-        <div class="modal-top">
-          <img src="sting-logo-white.png" alt="STNG Logo" class="logo" style="height:24px;">
-          <div class="modal-title" id="cdTitle">Gratis-Aktion startet bald</div>
-        </div>
 
-        <p class="modal-sub">
-          Hej hej! Im März gibt’s <strong>1 kostenlose Dose</strong>. Die Aktion startet am
-          <strong>01.03.2026 um 00:00</strong>
-        </p>
+<form action="mailto:office@kp-plattner.at" method="post" enctype="text/plain" class="stng-form">
+  
+  <h2>STNG Aktion</h2>
 
-        <div class="timer" aria-label="Countdown">
-          <div class="tbox"><div class="tval" id="d">--</div><div class="tlab">Tage</div></div>
-          <div class="tbox"><div class="tval" id="h">--</div><div class="tlab">Std</div></div>
-          <div class="tbox"><div class="tval" id="m">--</div><div class="tlab">Min</div></div>
-          <div class="tbox"><div class="tval" id="s">--</div><div class="tlab">Sek</div></div>
-        </div>
-
-        <div class="modal-note">
-          <strong>Hinweis:</strong> Dieses Produkt enthält Nikotin, einen Stoff, der sehr stark abhängig macht.
-          Abgabe nur an Personen über 18 Jahren.
-        </div>
-
-        <div class="modal-actions">
-          <a class="btn linkish" href="index.html">← Zurück zur Startseite</a>
-        </div>
-
-        <div class="small">
-          Sobald der Countdown abgelaufen ist, wird das Formular automatisch freigeschaltet.
-        </div>
-      </div>
-    </div>
+  <div class="form-group">
+    <label for="name">Vor- & Nachname *</label>
+    <input type="text" id="name" name="Name" required>
   </div>
 
-  <header aria-label="Navigation">
-    <div class="container topbar">
-      <a href="index.html" aria-label="Zurück zur Startseite">
-        <img src="sting-logo-white.png" alt="STNG Logo" class="logo">
-      </a>
+  <div class="form-group">
+    <label for="email">E-Mail *</label>
+    <input type="email" id="email" name="E-Mail" required>
+  </div>
 
-      <div class="nav-actions">
-        <a class="pill" href="index.html">Produkte</a>
-        <a class="pill" href="impressum.html">Impressum</a>
-      </div>
-    </div>
-  </header>
+  <div class="form-group">
+    <label for="address">Adresse *</label>
+    <input type="text" id="address" name="Adresse" required>
+  </div>
 
-  <main>
-    <div class="container">
-      <div class="kicker">März Aktion · Österreich</div>
-      <h1>Hej hej! STNG Pouches sind da.</h1>
+  <div class="form-group">
+    <label for="zip">PLZ / Ort *</label>
+    <input type="text" id="zip" name="PLZ-Ort" required>
+  </div>
 
-      <p class="lead">
-        Im März kannst du dir <strong>1 kostenlose Dose</strong> deines Lieblingsgeschmacks zusenden lassen.
-        Einfach Formular ausfüllen — solange der Vorrat reicht.
-      </p>
+  <div class="form-group checkbox">
+    <input type="checkbox" id="age" required>
+    <label for="age">Ich bestätige, dass ich über 18 Jahre alt bin *</label>
+  </div>
 
-      <div class="notice">
-        <strong>Hinweis:</strong> Dieses Produkt enthält Nikotin, einen Stoff, der sehr stark abhängig macht.
-        Abgabe nur an Personen über 18 Jahren.
-      </div>
+  <div class="form-group checkbox">
+    <input type="checkbox" id="privacy" required>
+    <label for="privacy">Ich akzeptiere die Datenschutzbestimmungen *</label>
+  </div>
 
-      <div class="countdown-banner" id="countdownBanner">
-        Aktion startet in: <span class="mono" id="bannerTime">--:--:--</span>
-        (01.03.2026 · 00:00 AT)
-      </div>
+  <input type="hidden" name="subject" value="STNG-Aktion">
 
-      <div class="card">
-        <form id="stngForm" novalidate>
-          <div class="grid">
-            <div class="full">
-              <label for="flavour">Lieblingsgeschmack</label>
-              <select id="flavour" name="flavour" required>
-                <option value="" selected disabled>Bitte auswählen …</option>
-                <option value="STNG Berry Seltzer (Art.-Nr. 75300)">STNG Berry Seltzer (Art.-Nr. 75300)</option>
-                <option value="STNG Raspberry (Art.-Nr. 75301)">STNG Raspberry (Art.-Nr. 75301)</option>
-                <option value="STNG Double Mint (Art.-Nr. 75302)">STNG Double Mint (Art.-Nr. 75302)</option>
-                <option value="STNG Cola Cherry (Art.-Nr. 75303)">STNG Cola Cherry (Art.-Nr. 75303)</option>
-                <option value="STNG Bubble (Art.-Nr. 75304)">STNG Bubble (Art.-Nr. 75304)</option>
-              </select>
-            </div>
+  <button type="submit">Jetzt an Aktion teilnehmen</button>
 
-            <div class="full">
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" placeholder="Vorname Nachname" required />
-            </div>
+  <p class="form-legal">
+    *Aktion gültig ab sofort bis 27. März 2026. Versand ausschließlich an Personen über 18 Jahre.
+    Aktion gültig nur solange der Vorrat reicht. Der Rechtsweg ist ausgeschlossen.
+  </p>
 
-            <div class="full">
-              <label for="address">Adresse</label>
-              <input id="address" name="address" type="text" placeholder="Straße, Hausnummer" required />
-            </div>
+</form>
 
-            <div>
-              <label for="zip">PLZ</label>
-              <input id="zip" name="zip" type="text" inputmode="numeric" placeholder="z.B. 6020" required />
-            </div>
-
-            <div>
-              <label for="city">Ort</label>
-              <input id="city" name="city" type="text" placeholder="z.B. Innsbruck" required />
-            </div>
-
-            <div class="full">
-              <label for="country">Land</label>
-              <select id="country" name="country" disabled>
-                <option selected>Österreich</option>
-              </select>
-              <input type="hidden" name="country_fixed" value="Österreich" />
-            </div>
-          </div>
-
-          <div class="checks">
-            <label style="margin-top:10px;">Einwilligungen</label>
-
-            <div class="check">
-              <input id="privacy" type="checkbox" required />
-              <div>
-                Ich bestätige, dass ich die <a href="impressum.html" target="_blank" rel="noopener">Datenschutz-/Impressums-Infos</a>
-                gelesen habe und mit der Verarbeitung meiner Daten zum Versand der Gratis-Dose einverstanden bin. <strong>(Pflicht)</strong>
-              </div>
-            </div>
-
-            <div class="check">
-              <input id="marketing" type="checkbox" />
-              <div>
-                Ich möchte Informationen und Angebote zu STNG (Marketingzwecke) per E-Mail erhalten. <em>(Optional)</em>
-              </div>
-            </div>
-          </div>
-
-          <div class="actions">
-            <button class="btn primary" id="submitBtn" type="submit">Gratis Dose anfordern</button>
-            <span class="hint" id="formHint">*Pflichtfelder erforderlich</span>
-          </div>
-
-          <div class="error" id="errorMsg">Bitte alle Pflichtfelder ausfüllen und Datenschutz bestätigen.</div>
-          <div class="success" id="successMsg">
-            ✅ Danke! Deine Anfrage wurde erfasst. Wir melden uns bzw. senden die Dose im Rahmen der Aktion zu.
-          </div>
-        </form>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <div class="container foot">
-      <div>© <span id="year"></span> STNG</div>
-      <div style="display:flex; gap:14px; flex-wrap:wrap;">
-        <a href="index.html">Produkte</a>
-        <a href="impressum.html">Impressum</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    /* ===========================
-       ✅ Countdown Startzeit (AT)
-       01.03.2026 00:00 Europe/Vienna
-       -> UTC: 28.02.2026 23:00:00Z (CET = UTC+1)
-       =========================== */
-    const TARGET_UTC = Date.UTC(2026, 1, 28, 23, 0, 0); // 2026-02-28T23:00:00Z
-
-    const modal = document.getElementById("countdownModal");
-    const banner = document.getElementById("countdownBanner");
-    const bannerTime = document.getElementById("bannerTime");
-
-    const submitBtn = document.getElementById("submitBtn");
-    const formHint = document.getElementById("formHint");
-
-    const dEl = document.getElementById("d");
-    const hEl = document.getElementById("h");
-    const mEl = document.getElementById("m");
-    const sEl = document.getElementById("s");
-
-    const pad2 = (n) => String(n).padStart(2, "0");
-
-    function openModal(){
-      modal.classList.add("show");
-      document.body.classList.add("modal-open");
-    }
-    function closeModal(){
-      modal.classList.remove("show");
-      document.body.classList.remove("modal-open");
-    }
-
-    function lockForm(){
-      submitBtn.disabled = true;
-      formHint.textContent = "Aktion noch nicht gestartet — Countdown läuft.";
-      banner.classList.add("show");
-    }
-    function unlockForm(){
-      submitBtn.disabled = false;
-      formHint.textContent = "*Pflichtfelder erforderlich";
-      banner.classList.remove("show");
-      closeModal();
-    }
-
-    const last = { d: null, h: null, m: null, s: null };
-
-    function flipIfChanged(el, val, key){
-      if (last[key] === val) return;
-      last[key] = val;
-
-      el.classList.remove("flip");
-      // force reflow to restart animation
-      void el.offsetWidth;
-      el.textContent = val;
-      el.classList.add("flip");
-    }
-
-    function renderCountdown(ms){
-      const totalSec = Math.max(0, Math.floor(ms / 1000));
-      const days = Math.floor(totalSec / 86400);
-      const hours = Math.floor((totalSec % 86400) / 3600);
-      const mins = Math.floor((totalSec % 3600) / 60);
-      const secs = totalSec % 60;
-
-      flipIfChanged(dEl, String(days), "d");
-      flipIfChanged(hEl, pad2(hours), "h");
-      flipIfChanged(mEl, pad2(mins), "m");
-      flipIfChanged(sEl, pad2(secs), "s");
-
-      bannerTime.textContent = `${days}D ${pad2(hours)}:${pad2(mins)}:${pad2(secs)}`;
-    }
-
-    let timer = null;
-    function initCountdown(){
-      const now = Date.now();
-      const diff = TARGET_UTC - now;
-
-      if (diff > 0){
-        lockForm();
-        openModal();
-        renderCountdown(diff);
-
-        timer = setInterval(() => {
-          const d = TARGET_UTC - Date.now();
-          renderCountdown(d);
-
-          if (d <= 0){
-            clearInterval(timer);
-            timer = null;
-            unlockForm();
-          }
-        }, 250);
-      } else {
-        unlockForm();
-      }
-    }
-
-    // No ESC close / no outside click close (forced until countdown ends)
-    document.addEventListener("keydown", (e) => {
-      if (modal.classList.contains("show") && e.key === "Escape") {
-        e.preventDefault();
-      }
-    });
-
-    // Prevent clicks on backdrop from closing (we don't add any close handler)
-    modal.addEventListener("click", (e) => {
-      // if user clicks outside card, do nothing
-      if (e.target === modal) e.preventDefault();
-    });
-
-    initCountdown();
-
-    /* ===========================
-       Formular (Frontend-only)
-       =========================== */
-    const form = document.getElementById("stngForm");
-    const errorMsg = document.getElementById("errorMsg");
-    const successMsg = document.getElementById("successMsg");
-    const privacy = document.getElementById("privacy");
-    const requiredIds = ["flavour", "name", "address", "zip", "city"];
-
-    const isValid = () => {
-      const okFields = requiredIds.every(id => {
-        const el = document.getElementById(id);
-        return el && String(el.value || "").trim().length > 0;
-      });
-      return okFields && privacy.checked === true;
-    };
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      if (submitBtn.disabled) return;
-
-      errorMsg.style.display = "none";
-      successMsg.style.display = "none";
-
-      if (!isValid()){
-        errorMsg.style.display = "block";
-        return;
-      }
-
-      successMsg.style.display = "block";
-      form.reset();
-      document.getElementById("country").selectedIndex = 0;
-    });
-  </script>
 </body>
 </html>
