@@ -90,26 +90,58 @@
     font-weight: 700;
   }
 
-  .form-group input,
-  .form-group select{
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    font-size: 14px;
-    font-family: inherit;
-    appearance: none;
-  }
+.form-group input,
+.form-group select{
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  appearance: none;
+}
 
-  .form-group select{ cursor: pointer; }
+/* Dropdown-Pfeil custom */
+.form-group select{
+  cursor: pointer;
+  background:
+    linear-gradient(90deg, rgba(0,240,255,0.08), rgba(0,255,153,0.08)),
+    rgba(255,255,255,0.08);
+  background-image:
+    linear-gradient(90deg, rgba(0,240,255,0.08), rgba(0,255,153,0.08)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 7l4.5 5 4.5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-position: left center, right 12px center;
+  background-size: 100% 100%, 14px;
+  padding-right: 36px;
+}
 
-  .form-group input:focus,
-  .form-group select:focus{
-    outline: none;
-    border-color: #00f0ff;
-    box-shadow: 0 0 0 3px rgba(0,240,255,0.20);
-  }
+/* Focus Glow wie Button */
+.form-group select:focus{
+  outline: none;
+  border-color: #00f0ff;
+  box-shadow:
+    0 0 0 3px rgba(0,240,255,0.25),
+    0 0 20px rgba(0,240,255,0.35);
+}
+
+/* Hover Effekt wie Submit */
+.form-group select:hover{
+  border-color: rgba(255,255,255,0.35);
+  background:
+    linear-gradient(90deg, rgba(0,240,255,0.18), rgba(0,255,153,0.18)),
+    rgba(255,255,255,0.10);
+  box-shadow:
+    0 0 18px rgba(0,240,255,0.35),
+    0 0 28px rgba(0,255,153,0.25);
+}
+
+/* Dropdown-Options (wichtig für Lesbarkeit) */
+.form-group select option{
+  background: #0b0f1a;
+  color: #ffffff;
+}
 
   .checkbox{
     flex-direction: row;
