@@ -108,7 +108,6 @@
     font-weight: 800;
   }
 
-  /* All fields */
   .form-group input,
   .form-group select,
   .form-group textarea{
@@ -118,7 +117,7 @@
     border: 1px solid var(--fieldLine);
     background: var(--fieldBg);
     color: rgba(255,255,255,0.96);
-    font-size: 16px; /* ✅ prevents iOS zoom */
+    font-size: 16px; /* iOS zoom fix */
     font-family: inherit;
     outline: none;
     transition: 220ms ease;
@@ -130,7 +129,6 @@
     color: rgba(255,255,255,0.55);
   }
 
-  /* Hover - neon */
   .form-group input:hover,
   .form-group select:hover,
   .form-group textarea:hover{
@@ -144,7 +142,6 @@
       0 0 28px var(--glowB);
   }
 
-  /* Focus - stronger neon */
   .form-group input:focus,
   .form-group select:focus,
   .form-group textarea:focus{
@@ -158,7 +155,6 @@
       0 0 36px rgba(0,255,153,0.25);
   }
 
-  /* Dropdown styling + readable options */
   .form-group select{
     cursor: pointer;
     appearance: none;
@@ -175,7 +171,6 @@
     color: #ffffff;
   }
 
-  /* Checkboxes */
   .form-check{
     display:flex;
     align-items:flex-start;
@@ -187,7 +182,6 @@
     background: rgba(255,255,255,0.03);
     transition: 220ms ease;
   }
-
   .form-check:hover{
     border-color: rgba(255,255,255,0.28);
     background:
@@ -197,7 +191,6 @@
       0 0 18px rgba(0,240,255,0.25),
       0 0 28px rgba(0,255,153,0.18);
   }
-
   .form-check label{
     margin: 0;
     line-height: 1.35;
@@ -223,7 +216,6 @@
     transition: 220ms ease;
     box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
   }
-
   .form-check input[type="checkbox"]::after{
     content:"";
     width: 10px;
@@ -236,7 +228,6 @@
       0 0 14px rgba(0,240,255,0.45),
       0 0 22px rgba(0,255,153,0.30);
   }
-
   .form-check input[type="checkbox"]:checked{
     border-color: rgba(0,240,255,0.85);
     background: rgba(0,240,255,0.12);
@@ -247,13 +238,6 @@
   }
   .form-check input[type="checkbox"]:checked::after{
     transform: scale(1);
-  }
-
-  .form-check input[type="checkbox"]:focus-visible{
-    outline: none;
-    box-shadow:
-      0 0 0 3px rgba(0,240,255,0.28),
-      0 0 24px rgba(0,240,255,0.30);
   }
 
   button{
@@ -269,10 +253,15 @@
     transition: 0.3s ease;
     min-height: 46px;
   }
-
   button:hover{
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(0,255,200,0.4);
+  }
+  button:disabled{
+    opacity: 0.75;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
 
   .form-legal{
@@ -287,7 +276,6 @@
     display:flex;
     justify-content:center;
   }
-
   .form-links a{
     font-size: 12px;
     color: rgba(255,255,255,0.75);
@@ -298,15 +286,23 @@
   .form-links a:hover{
     color: rgba(255,255,255,0.95);
   }
+
+  /* ✅ tiny status text */
+  .form-status{
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 650;
+    color: rgba(255,255,255,0.82);
+    display:none;
+  }
+  .form-status.show{ display:block; }
 </style>
 </head>
 
 <body>
 
-<form action="https://formspree.io/f/xxxxxxx" method="POST" class="stng-form">
-  <input type="hidden" name="_subject" value="STNG-Aktion">
-  <input type="text" name="_gotcha" style="display:none">
-
+<form id="stngForm" class="stng-form" novalidate>
   <div class="form-header">
     <a class="form-logo" href="index.html" aria-label="Zur Startseite">
       <img src="sting-logo-white.png" alt="STNG Logo">
@@ -320,14 +316,20 @@
     </p>
   </div>
 
+  <!-- ✅ Honeypot (unsichtbar) -->
+  <div style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+    <label for="hp">Bitte dieses Feld leer lassen</label>
+    <input type="text" id="hp" name="company" autocomplete="off" tabindex="-1">
+  </div>
+
   <div class="form-group">
     <label for="name">Vor- & Nachname *</label>
-    <input type="text" id="name" name="Name" required placeholder="Max Mustermann">
+    <input type="text" id="name" name="Name" required placeholder="Max Mustermann" autocomplete="name">
   </div>
 
   <div class="form-group">
     <label for="email">E-Mail *</label>
-    <input type="email" id="email" name="E-Mail" required placeholder="max@email.at">
+    <input type="email" id="email" name="E-Mail" required placeholder="max@email.at" autocomplete="email">
   </div>
 
   <div class="form-group">
@@ -351,25 +353,26 @@
 
   <div class="form-group">
     <label for="address">Adresse *</label>
-    <input type="text" id="address" name="Adresse" required placeholder="Straße Hausnummer">
+    <input type="text" id="address" name="Adresse" required placeholder="Straße Hausnummer" autocomplete="street-address">
   </div>
 
   <div class="form-group">
     <label for="zip">PLZ / Ort *</label>
-    <input type="text" id="zip" name="PLZ / Ort" required placeholder="1010 Wien">
+    <input type="text" id="zip" name="PLZ / Ort" required placeholder="1010 Wien" autocomplete="postal-code">
   </div>
 
   <div class="form-check">
-    <input type="checkbox" id="age" name="18+ bestätigt" value="Ja" required>
+    <input type="checkbox" id="age" required>
     <label for="age">Ich bestätige, dass ich über 18 Jahre alt bin *</label>
   </div>
 
   <div class="form-check">
-    <input type="checkbox" id="privacy" name="Datenschutz akzeptiert" value="Ja" required>
+    <input type="checkbox" id="privacy" required>
     <label for="privacy">Ich akzeptiere die Datenschutzbestimmungen *</label>
   </div>
 
-  <button type="submit">Jetzt an Aktion teilnehmen</button>
+  <button type="submit" id="submitBtn">Jetzt an Aktion teilnehmen</button>
+  <div class="form-status" id="formStatus"></div>
 
   <p class="form-legal">
     *Aktion gültig ab sofort bis 27. März 2026. Versand ausschließlich an Personen über 18 Jahre.
@@ -380,8 +383,89 @@
   <div class="form-links">
     <a href="datenschutz.html">Datenschutz</a>
   </div>
-
 </form>
+
+<script>
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbx7bWSjafOc6TX5Nk5wGJRS39CBYTqGXMQref4e5pd233IvY3-c4texH5VzRWHqc-2XMA/exec";
+  const form = document.getElementById("stngForm");
+  const btn = document.getElementById("submitBtn");
+  const statusEl = document.getElementById("formStatus");
+
+  // Time-to-submit stamp (anti-bot)
+  const startTs = Date.now();
+
+  function setStatus(msg, ok=true){
+    statusEl.textContent = msg;
+    statusEl.classList.add("show");
+    statusEl.style.color = ok ? "rgba(255,255,255,0.82)" : "rgba(255,200,200,0.95)";
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Basic client validation
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const dose = document.getElementById("dose").value;
+    const land = document.getElementById("country").value;
+    const adresse = document.getElementById("address").value.trim();
+    const plzort = document.getElementById("zip").value.trim();
+    const age = document.getElementById("age").checked;
+    const privacy = document.getElementById("privacy").checked;
+    const hp = document.getElementById("hp").value.trim();
+
+    if (!name || !email || !dose || !land || !adresse || !plzort) {
+      setStatus("Bitte alle Pflichtfelder ausfüllen.", false);
+      return;
+    }
+    if (!age || !privacy) {
+      setStatus("Bitte bestätige 18+ und Datenschutz.", false);
+      return;
+    }
+
+    btn.disabled = true;
+    const oldText = btn.textContent;
+    btn.textContent = "Wird gesendet…";
+    setStatus("Sende Daten…", true);
+
+    const payload = {
+      ts: startTs,
+      hp,
+      name,
+      email,
+      dose,
+      land,
+      adresse,
+      plzort,
+      age,
+      privacy
+    };
+
+    try {
+      // no-cors = robust on GitHub Pages + Apps Script
+      await fetch(ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      btn.textContent = "Danke! ✅";
+      setStatus("Danke! Deine Anfrage wurde gespeichert.", true);
+      form.reset();
+
+      setTimeout(() => {
+        btn.textContent = oldText;
+        btn.disabled = false;
+      }, 1500);
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = "Fehler – nochmal";
+      setStatus("Senden fehlgeschlagen. Bitte erneut versuchen.", false);
+    }
+  });
+</script>
 
 </body>
 </html>
