@@ -10,6 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
+  :root{
+    --glowA: rgba(0, 240, 255, 0.55);
+    --glowB: rgba(0, 255, 153, 0.40);
+    --fieldBg: rgba(255,255,255,0.08);
+    --fieldBgHover: rgba(255,255,255,0.10);
+    --fieldLine: rgba(255,255,255,0.20);
+    --fieldLineHover: rgba(255,255,255,0.34);
+  }
+
   body{
     margin: 0;
     background: #0b0f1a;
@@ -21,11 +30,20 @@
   .stng-form{
     max-width: 520px;
     margin: 40px auto;
-    padding: 28px;
+    padding: 26px;
     border-radius: 18px;
     background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
     backdrop-filter: blur(10px);
     box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  }
+
+  @media (max-width: 520px){
+    body{ padding: 14px; }
+    .stng-form{
+      margin: 18px auto;
+      padding: 18px;
+      border-radius: 16px;
+    }
   }
 
   .form-header{
@@ -87,77 +105,155 @@
     font-size: 14px;
     margin-bottom: 6px;
     opacity: 0.9;
-    font-weight: 700;
+    font-weight: 800;
   }
 
-.form-group input,
-.form-group select{
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08);
-  color: #fff;
-  font-size: 14px;
-  font-family: inherit;
-  appearance: none;
-}
-
-/* Dropdown-Pfeil custom */
-.form-group select{
-  cursor: pointer;
-  background:
-    linear-gradient(90deg, rgba(0,240,255,0.08), rgba(0,255,153,0.08)),
-    rgba(255,255,255,0.08);
-  background-image:
-    linear-gradient(90deg, rgba(0,240,255,0.08), rgba(0,255,153,0.08)),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 7l4.5 5 4.5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat, no-repeat;
-  background-position: left center, right 12px center;
-  background-size: 100% 100%, 14px;
-  padding-right: 36px;
-}
-
-/* Focus Glow wie Button */
-.form-group select:focus{
-  outline: none;
-  border-color: #00f0ff;
-  box-shadow:
-    0 0 0 3px rgba(0,240,255,0.25),
-    0 0 20px rgba(0,240,255,0.35);
-}
-
-/* Hover Effekt wie Submit */
-.form-group select:hover{
-  border-color: rgba(255,255,255,0.35);
-  background:
-    linear-gradient(90deg, rgba(0,240,255,0.18), rgba(0,255,153,0.18)),
-    rgba(255,255,255,0.10);
-  box-shadow:
-    0 0 18px rgba(0,240,255,0.35),
-    0 0 28px rgba(0,255,153,0.25);
-}
-
-/* Dropdown-Options (wichtig für Lesbarkeit) */
-.form-group select option{
-  background: #0b0f1a;
-  color: #ffffff;
-}
-
-  .checkbox{
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
+  /* All fields */
+  .form-group input,
+  .form-group select,
+  .form-group textarea{
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--fieldLine);
+    background: var(--fieldBg);
+    color: rgba(255,255,255,0.96);
+    font-size: 16px; /* ✅ prevents iOS zoom */
+    font-family: inherit;
+    outline: none;
+    transition: 220ms ease;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
   }
-  .checkbox input{
-    width: auto;
-    transform: translateY(2px);
-    margin-top: 2px;
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder{
+    color: rgba(255,255,255,0.55);
   }
-  .checkbox label{
+
+  /* Hover - neon */
+  .form-group input:hover,
+  .form-group select:hover,
+  .form-group textarea:hover{
+    border-color: var(--fieldLineHover);
+    background:
+      linear-gradient(90deg, rgba(0,240,255,0.16), rgba(0,255,153,0.16)),
+      var(--fieldBgHover);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.08) inset,
+      0 0 18px var(--glowA),
+      0 0 28px var(--glowB);
+  }
+
+  /* Focus - stronger neon */
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus{
+    border-color: rgba(0,240,255,0.95);
+    background:
+      linear-gradient(90deg, rgba(0,240,255,0.18), rgba(0,255,153,0.18)),
+      rgba(255,255,255,0.10);
+    box-shadow:
+      0 0 0 3px rgba(0,240,255,0.22),
+      0 0 22px rgba(0,240,255,0.35),
+      0 0 36px rgba(0,255,153,0.25);
+  }
+
+  /* Dropdown styling + readable options */
+  .form-group select{
+    cursor: pointer;
+    appearance: none;
+    padding-right: 42px;
+    background-image:
+      linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 7l4.5 5 4.5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat, no-repeat;
+    background-position: left center, right 14px center;
+    background-size: 100% 100%, 14px;
+  }
+  .form-group select option{
+    background: #0b0f1a;
+    color: #ffffff;
+  }
+
+  /* Checkboxes */
+  .form-check{
+    display:flex;
+    align-items:flex-start;
+    gap: 12px;
+    margin: 12px 0;
+    padding: 12px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.03);
+    transition: 220ms ease;
+  }
+
+  .form-check:hover{
+    border-color: rgba(255,255,255,0.28);
+    background:
+      linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
+      rgba(255,255,255,0.04);
+    box-shadow:
+      0 0 18px rgba(0,240,255,0.25),
+      0 0 28px rgba(0,255,153,0.18);
+  }
+
+  .form-check label{
     margin: 0;
-    font-weight: 650;
-    opacity: 0.9;
     line-height: 1.35;
+    font-size: 14px;
+    font-weight: 650;
+    color: rgba(255,255,255,0.88);
+    cursor: pointer;
+  }
+
+  .form-check input[type="checkbox"]{
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.30);
+    background: rgba(255,255,255,0.06);
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    flex: 0 0 auto;
+    transition: 220ms ease;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+  }
+
+  .form-check input[type="checkbox"]::after{
+    content:"";
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    transform: scale(0);
+    transition: 160ms ease;
+    background: linear-gradient(90deg, #00f0ff, #00ff99);
+    box-shadow:
+      0 0 14px rgba(0,240,255,0.45),
+      0 0 22px rgba(0,255,153,0.30);
+  }
+
+  .form-check input[type="checkbox"]:checked{
+    border-color: rgba(0,240,255,0.85);
+    background: rgba(0,240,255,0.12);
+    box-shadow:
+      0 0 0 3px rgba(0,240,255,0.18),
+      0 0 20px rgba(0,240,255,0.30),
+      0 0 30px rgba(0,255,153,0.20);
+  }
+  .form-check input[type="checkbox"]:checked::after{
+    transform: scale(1);
+  }
+
+  .form-check input[type="checkbox"]:focus-visible{
+    outline: none;
+    box-shadow:
+      0 0 0 3px rgba(0,240,255,0.28),
+      0 0 24px rgba(0,240,255,0.30);
   }
 
   button{
@@ -171,6 +267,7 @@
     background: linear-gradient(90deg, #00f0ff, #00ff99);
     color: #000;
     transition: 0.3s ease;
+    min-height: 46px;
   }
 
   button:hover{
@@ -223,12 +320,12 @@
 
   <div class="form-group">
     <label for="name">Vor- & Nachname *</label>
-    <input type="text" id="name" name="Name" required>
+    <input type="text" id="name" name="Name" required placeholder="Max Mustermann">
   </div>
 
   <div class="form-group">
     <label for="email">E-Mail *</label>
-    <input type="email" id="email" name="E-Mail" required>
+    <input type="email" id="email" name="E-Mail" required placeholder="max@email.at">
   </div>
 
   <div class="form-group">
@@ -252,24 +349,22 @@
 
   <div class="form-group">
     <label for="address">Adresse *</label>
-    <input type="text" id="address" name="Adresse" required>
+    <input type="text" id="address" name="Adresse" required placeholder="Straße Hausnummer">
   </div>
 
   <div class="form-group">
     <label for="zip">PLZ / Ort *</label>
-    <input type="text" id="zip" name="PLZ / Ort" required>
+    <input type="text" id="zip" name="PLZ / Ort" required placeholder="1010 Wien">
   </div>
 
-  <div class="form-group checkbox">
+  <div class="form-check">
     <input type="checkbox" id="age" name="18+ bestätigt" value="Ja" required>
     <label for="age">Ich bestätige, dass ich über 18 Jahre alt bin *</label>
   </div>
 
-  <div class="form-group checkbox">
+  <div class="form-check">
     <input type="checkbox" id="privacy" name="Datenschutz akzeptiert" value="Ja" required>
-    <label for="privacy">
-      Ich akzeptiere die Datenschutzbestimmungen *
-    </label>
+    <label for="privacy">Ich akzeptiere die Datenschutzbestimmungen *</label>
   </div>
 
   <button type="submit">Jetzt an Aktion teilnehmen</button>
