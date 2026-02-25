@@ -370,6 +370,111 @@
         0 0 60px color-mix(in srgb, var(--accent) 90%, transparent);
     }
 
+    /* ===========================
+       ✅ FAQ (Accordion, STNG style)
+       =========================== */
+    .faq-section{ padding: 90px 0 70px; }
+    .faq-title{
+      text-align:center;
+      font-size: clamp(26px, 3.4vw, 42px);
+      margin: 0 0 44px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+    .faq-list{ display:grid; gap: 14px; }
+
+    .faq-item{
+      border-radius: var(--radius);
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      box-shadow: 0 25px 80px rgba(0,0,0,0.55);
+      overflow:hidden;
+      position: relative;
+      transition: 200ms ease;
+    }
+    .faq-item::before{
+      content:"";
+      position:absolute;
+      inset:-60% -40%;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.12), transparent 55%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .faq-q{
+      position: relative;
+      width: 100%;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      padding: 18px 20px;
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      color: rgba(255,255,255,0.92);
+      font-weight: 900;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .faq-q:hover{
+      text-shadow: 0 0 14px rgba(255,255,255,0.22);
+    }
+    .faq-ico{
+      width: 34px; height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.18);
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      transition: 200ms ease;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .faq-item.active .faq-ico{
+      transform: rotate(45deg);
+      border-color: rgba(255,255,255,0.22);
+      box-shadow: 0 0 24px rgba(255,255,255,0.12);
+    }
+
+    .faq-a{
+      position: relative;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 420ms cubic-bezier(.2,.8,.2,1);
+    }
+    .faq-a-inner{
+      padding: 0 20px 18px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .faq-a a{
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      opacity: 0.95;
+    }
+    .faq-a a:hover{ opacity: 1; }
+
+    @media (max-width: 920px){
+      .container{ width: min(var(--max), calc(100% - 32px)); }
+      .hero-grid{ grid-template-columns: 1fr; }
+      .flavor-row{
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "product"
+          "info" !important;
+        min-height: unset;
+      }
+      .nav-links{ display:none; }
+      .progress{ display:none; }
+      .faq-section{ padding: 70px 0 55px; }
+    }
+
     footer{
       border-top: 1px solid var(--line);
       padding: 26px 0;
@@ -434,20 +539,6 @@
     .progress a.active .dot{
       background: var(--accent, rgba(255,255,255,0.9));
       box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 60%, transparent);
-    }
-
-    @media (max-width: 920px){
-      .container{ width: min(var(--max), calc(100% - 32px)); }
-      .hero-grid{ grid-template-columns: 1fr; }
-      .flavor-row{
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "product"
-          "info" !important;
-        min-height: unset;
-      }
-      .nav-links{ display:none; }
-      .progress{ display:none; }
     }
 
     /* ===========================
@@ -936,6 +1027,169 @@
       </div>
     </section>
 
+    <!-- ✅ FAQ SECTION (oberhalb Footer) -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <h2 class="faq-title">FAQ STNG</h2>
+
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Wo kann ich STNG Produkte kaufen?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                STNG Pouches erhältst du in Trafiken und Tankstellen in ganz Österreich – einfach in deiner Trafik des Vertrauens nachfragen.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Enthalten STNG Pouches Tabak?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                Nein. STNG Nikotinbeutel enthalten keinen Tabak, sondern ausschließlich Nikotin.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Wie hoch ist der Nikotingehalt der STNG Pouches?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                Die STNG Nikotinbeutel enthalten 50 mg Nikotin pro Gramm (mg/g).<br>
+                Das entspricht 27,5 mg Nikotin pro Beutel (mg/pouch).
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Was sind Nikotinbeutel (Nicotine Pouches)?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                Nikotinbeutel sind kleine, diskrete, weiche weiße Beutel, die mit Nikotin und Aromen gefüllt sind.
+                Sie werden unter die Oberlippe gelegt und sind komplett tabakfrei.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Was enthalten STNG Nikotinbeutel?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                Die Pouches enthalten typischerweise: Fasern, Aromen, Nikotin, pH-Regulatoren, Stabilisatoren und Süßungsmittel.
+                Alle Inhaltsstoffe sind klar auf dem Etikett ausgewiesen.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Für wen sind die Produkte gedacht?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                STNG Produkte sind nur für Erwachsene (18 Jahre und älter) gedacht – ohne Ausnahme.
+                Sie bieten eine bequeme, diskrete und genussvolle Art, Nikotin ohne Tabak zu konsumieren.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Sind die STNG Produkte vegan?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                Ja – alle STNG Nikotinbeutel sind 100 % vegan.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Wie sollte ich die Pouches lagern?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                Es gibt keine strenge Regel. Im Gegensatz zu traditionellem Tabak-Snus, der idealerweise im Kühlschrank aufbewahrt wird,
+                können Nikotinbeutel ungekühlt bei Raumtemperatur gelagert werden – je nach Vorliebe.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Wie bewahre ich meine STNG Dose richtig auf?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                Achten Sie darauf, die Dose nach der Entnahme eines Nikotinbeutels stets wieder gut zu verschließen.
+                So bleiben die restlichen Pouches frisch und trocknen nicht aus.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Woher stammen STNG Pouches?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                STNG Nikotinbeutel werden in Schweden entwickelt und hergestellt – bekannt für moderne, tabakfreie Nikotinbeutel
+                mit intensiven Geschmacksprofilen.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Wie viele Nikotinbeutel befinden sich in einer Dose STNG?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                In einer Dose befinden sich 20 Nikotinbeutel.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Welche Geschmacksrichtungen sind bei STNG Pouches erhältlich?
+              <span class="faq-ico" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                STNG Pouches sind in folgenden Geschmacksrichtungen erhältlich:
+                Double Mint, Bubble, Cola Cherry, Raspberry und Berry Seltzer.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <footer id="kontakt">
       <div class="container foot">
         <div>© <span id="year"></span> STNG</div>
@@ -1021,6 +1275,26 @@
     setActive("f1");
 
     /* ===========================
+       ✅ FAQ ACCORDION LOGIC
+       =========================== */
+    document.querySelectorAll(".faq-q").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".faq-item");
+        const panel = item.querySelector(".faq-a");
+
+        const isOpen = item.classList.contains("active");
+        item.classList.toggle("active", !isOpen);
+        btn.setAttribute("aria-expanded", String(!isOpen));
+
+        if (!isOpen) {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } else {
+          panel.style.maxHeight = null;
+        }
+      });
+    });
+
+    /* ===========================
        ✅ AGE GATE LOGIC
        =========================== */
     const agegate = document.getElementById("agegate");
@@ -1092,6 +1366,17 @@
       btn.addEventListener('mouseenter', () => rect = btn.getBoundingClientRect());
       btn.addEventListener('mousemove', move);
       btn.addEventListener('mouseleave', reset);
+    });
+
+    // ✅ FAQ: on load, ensure closed (prevents weird maxHeight after refresh/back)
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".faq-item").forEach((item) => {
+        item.classList.remove("active");
+        const panel = item.querySelector(".faq-a");
+        if (panel) panel.style.maxHeight = null;
+        const btn = item.querySelector(".faq-q");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      });
     });
   </script>
 </body>
