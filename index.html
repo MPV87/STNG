@@ -579,6 +579,9 @@
     }
     .faq-a a:hover{ opacity: 1; }
 
+    /* ===========================
+       ✅ FOOTER + Instagram Neon Glow (NEU)
+       =========================== */
     footer{
       border-top: 1px solid var(--line);
       padding: 26px 0;
@@ -591,6 +594,102 @@
       justify-content: space-between;
       gap: 14px;
       flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* zusätzlicher, zentrierter IG-Row */
+    .foot-ig{
+      width: 100%;
+      display:flex;
+      justify-content:center;
+      margin-top: 14px;
+    }
+
+    .ig-link{
+      --ig: #ff2bd6; /* Neon Pink */
+      display:inline-flex;
+      align-items:center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.03);
+      color: var(--ig);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: 220ms ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ig-link svg{
+      filter:
+        drop-shadow(0 0 8px color-mix(in srgb, var(--ig) 90%, transparent))
+        drop-shadow(0 0 18px color-mix(in srgb, var(--ig) 70%, transparent));
+    }
+
+    .ig-link{
+      text-shadow:
+        0 0 6px color-mix(in srgb, var(--ig) 85%, transparent),
+        0 0 16px color-mix(in srgb, var(--ig) 70%, transparent),
+        0 0 36px color-mix(in srgb, var(--ig) 55%, transparent);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08) inset,
+        0 12px 34px rgba(0,0,0,0.55),
+        0 0 26px color-mix(in srgb, var(--ig) 55%, transparent),
+        0 0 58px color-mix(in srgb, var(--ig) 35%, transparent);
+    }
+
+    /* Glow-Halo */
+    .ig-link::before{
+      content:"";
+      position:absolute;
+      inset:-18px;
+      background:
+        radial-gradient(closest-side, color-mix(in srgb, var(--ig) 30%, transparent), transparent 65%);
+      filter: blur(10px);
+      opacity: .95;
+      pointer-events:none;
+    }
+
+    /* Shine */
+    .ig-link::after{
+      content:"";
+      position:absolute;
+      top:-20%;
+      left:-60%;
+      width:55%;
+      height:140%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      transform: skewX(-18deg);
+      opacity: 0;
+      pointer-events:none;
+    }
+
+    .ig-link:hover{
+      transform: translateY(-3px) scale(1.02);
+      color: rgba(255,255,255,0.96);
+      border-color: rgba(255,255,255,0.24);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.12) inset,
+        0 18px 46px rgba(0,0,0,0.60),
+        0 0 40px color-mix(in srgb, var(--ig) 75%, transparent),
+        0 0 86px color-mix(in srgb, var(--ig) 55%, transparent);
+    }
+    .ig-link:hover::after{
+      opacity: 1;
+      animation: igShine .85s ease forwards;
+    }
+    .ig-link:active{ transform: translateY(-1px) scale(0.99); }
+
+    @keyframes igShine{
+      0% { left:-60%; }
+      100% { left:130%; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .ig-link:hover::after{ animation: none; }
     }
 
     /* Progress Dots */
@@ -1345,6 +1444,16 @@
           <a href="formular.html">Gratis Dose</a>
           <a href="impressum.html">Impressum</a>
           <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'})">Nach oben</a>
+        </div>
+
+        <!-- ✅ Instagram neon glow (zentriert) -->
+        <div class="foot-ig">
+          <a class="ig-link" href="https://www.instagram.com/stng_pouches" target="_blank" rel="noopener noreferrer" aria-label="STNG auf Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+              <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5zm0 2h8.5C18.008 4 20 5.992 20 7.75v8.5c0 1.758-1.992 3.75-3.75 3.75h-8.5C5.992 20 4 18.008 4 16.25v-8.5C4 5.992 5.992 4 7.75 4zm9 2a1 1 0 100 2 1 1 0 000-2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/>
+            </svg>
+            <span>@stng_pouches</span>
+          </a>
         </div>
       </div>
     </footer>
