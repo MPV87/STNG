@@ -386,6 +386,39 @@
 </form>
 
 <script>
+  /* ===========================
+     ✅ META PIXEL (DSGVO: only after consent)
+     - Reads consent from index agegate: stng_marketing_ok_v1
+     =========================== */
+  function loadMetaPixel() {
+    if (window.metaPixelLoaded) return;
+    window.metaPixelLoaded = true;
+
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '1913569849263625');
+    fbq('track', 'PageView');
+  }
+
+  // If user already consented earlier → load pixel on this page too
+  if (localStorage.getItem('stng_marketing_ok_v1') === 'yes') {
+    loadMetaPixel();
+  }
+
+  // OPTIONAL: track "Lead" after successful submit (only if pixel is loaded)
+  function trackLeadSafe(){
+    try{
+      if (typeof fbq === "function") fbq('track', 'Lead');
+    }catch(e){}
+  }
+
   const ENDPOINT = "https://script.google.com/macros/s/AKfycbx7bWSjafOc6TX5Nk5wGJRS39CBYTqGXMQref4e5pd233IvY3-c4texH5VzRWHqc-2XMA/exec";
   const form = document.getElementById("stngForm");
   const btn = document.getElementById("submitBtn");
@@ -449,6 +482,9 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
+
+      // ✅ Meta Pixel conversion event (only if consented + pixel loaded)
+      trackLeadSafe();
 
       btn.textContent = "Danke! ✅";
       setStatus("Danke! Deine Anfrage wurde gespeichert.", true);
