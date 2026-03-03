@@ -1014,8 +1014,19 @@
           <strong>Offizielle Warnung (AT):</strong> Dieses Produkt enthält Nikotin, einen Stoff, der sehr stark abhängig macht.
         </div>
 
+        <!-- ✅ NEU: Hinweis + 2 Optionen für Marketing/Tracking -->
+        <p class="agegate-sub" style="margin-top:10px;">
+          Optional: Darf STNG Marketing- & Tracking-Cookies (Meta Pixel) verwenden?
+        </p>
+
         <div class="agegate-actions">
-          <button class="btn primary" id="btnYes" type="button">Ja, ich bin über 18 Jahre alt</button>
+          <!-- ✅ NEU: 18+ + Marketing (lädt Pixel) -->
+          <button class="btn primary" id="btnYesMk" type="button">Ja, 18+ & Marketing akzeptieren</button>
+
+          <!-- ✅ NEU: 18+ ohne Marketing (kein Pixel) -->
+          <button class="btn" id="btnYesNoMk" type="button">Ja, 18+ ohne Marketing</button>
+
+          <!-- bestehend: Blockieren -->
           <button class="btn danger" id="btnNo" type="button">Nein, ich komme wieder wenn ich volljährig bin</button>
         </div>
 
@@ -1462,6 +1473,31 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    /* ===========================
+       ✅ META PIXEL (DSGVO: only after consent)
+       =========================== */
+    function loadMetaPixel() {
+      if (window.metaPixelLoaded) return;
+      window.metaPixelLoaded = true;
+
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', '1913569849263625');
+      fbq('track', 'PageView');
+    }
+
+    // If user already consented earlier → load immediately
+    if (localStorage.getItem('stng_marketing_ok_v1') === 'yes') {
+      loadMetaPixel();
+    }
+
     // Reveal animation on scroll
     const targets = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries) => {
@@ -1566,14 +1602,16 @@
     window.addEventListener("load", () => faqItems.forEach(closeFaq));
 
     /* ===========================
-       ✅ AGE GATE LOGIC
+       ✅ AGE GATE LOGIC (+ Marketing Consent)
        =========================== */
     const agegate = document.getElementById("agegate");
-    const btnYes = document.getElementById("btnYes");
+    const btnYesMk = document.getElementById("btnYesMk");
+    const btnYesNoMk = document.getElementById("btnYesNoMk");
     const btnNo = document.getElementById("btnNo");
     const blockedMsg = document.getElementById("blockedMsg");
 
-    const KEY = "stng_age_ok_v1";
+    const KEY_AGE = "stng_age_ok_v1";
+    const KEY_MK  = "stng_marketing_ok_v1";
 
     function openAgegate(){
       agegate.classList.add("show");
@@ -1584,18 +1622,31 @@
       document.body.classList.remove("modal-open");
     }
 
-    const saved = localStorage.getItem(KEY);
-    if (saved !== "yes") openAgegate();
+    // show popup if age not confirmed
+    const savedAge = localStorage.getItem(KEY_AGE);
+    if (savedAge !== "yes") openAgegate();
 
-    btnYes.addEventListener("click", () => {
-      localStorage.setItem(KEY, "yes");
+    // ✅ 18+ & marketing
+    btnYesMk.addEventListener("click", () => {
+      localStorage.setItem(KEY_AGE, "yes");
+      localStorage.setItem(KEY_MK, "yes");
+      loadMetaPixel();
       closeAgegate();
     });
 
+    // ✅ 18+ without marketing
+    btnYesNoMk.addEventListener("click", () => {
+      localStorage.setItem(KEY_AGE, "yes");
+      localStorage.setItem(KEY_MK, "no");
+      closeAgegate();
+    });
+
+    // underage / block
     btnNo.addEventListener("click", () => {
-      localStorage.removeItem(KEY);
+      localStorage.removeItem(KEY_AGE);
       blockedMsg.classList.add("show");
-      btnYes.disabled = true;
+      btnYesMk.disabled = true;
+      btnYesNoMk.disabled = true;
       btnNo.disabled = true;
 
       document.addEventListener("click", (e) => {
@@ -1606,6 +1657,7 @@
       }, true);
     });
 
+    // block ESC when agegate open
     document.addEventListener("keydown", (e) => {
       if (agegate.classList.contains("show") && e.key === "Escape") {
         e.preventDefault();
@@ -1711,5 +1763,8 @@
       btn.addEventListener('mouseleave', reset);
     });
   </script>
+
+  <!-- ✅ NOSCRIPT Pixel (only relevant if JS is disabled; kept minimal) -->
+  <!-- If you want strict consent even for noscript, remove this block entirely -->
 </body>
 </html>
