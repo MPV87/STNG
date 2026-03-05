@@ -1,306 +1,503 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>STNG Aktion</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STNG Aktion</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<style>
-  :root{
-    --glowA: rgba(0, 240, 255, 0.55);
-    --glowB: rgba(0, 255, 153, 0.40);
-    --fieldBg: rgba(255,255,255,0.08);
-    --fieldBgHover: rgba(255,255,255,0.10);
-    --fieldLine: rgba(255,255,255,0.20);
-    --fieldLineHover: rgba(255,255,255,0.34);
-  }
-
-  body{
-    margin: 0;
-    background: #0b0f1a;
-    padding: 20px;
-    font-family: "Montserrat", Arial, sans-serif;
-    color:#fff;
-  }
-
-  .stng-form{
-    max-width: 520px;
-    margin: 40px auto;
-    padding: 26px;
-    border-radius: 18px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-    backdrop-filter: blur(10px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-  }
-
-  @media (max-width: 520px){
-    body{ padding: 14px; }
-    .stng-form{
-      margin: 18px auto;
-      padding: 18px;
-      border-radius: 16px;
+  <style>
+    :root{
+      --glowA: rgba(0, 240, 255, 0.55);
+      --glowB: rgba(0, 255, 153, 0.40);
+      --fieldBg: rgba(255,255,255,0.08);
+      --fieldBgHover: rgba(255,255,255,0.10);
+      --fieldLine: rgba(255,255,255,0.20);
+      --fieldLineHover: rgba(255,255,255,0.34);
     }
-  }
 
-  .form-header{
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    gap: 10px;
-    margin-bottom: 18px;
-    text-align:center;
-  }
+    body{
+      margin: 0;
+      background: #0b0f1a;
+      padding: 20px;
+      font-family: "Montserrat", Arial, sans-serif;
+      color:#fff;
+    }
+    body.modal-open{ overflow:hidden; }
 
-  .form-logo{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding: 8px 12px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.03);
-    transition: 180ms ease;
-  }
-  .form-logo:hover{
-    transform: translateY(-1px);
-    border-color: rgba(255,255,255,0.22);
-    box-shadow: 0 0 26px rgba(0,240,255,0.18);
-  }
-  .form-logo img{
-    height: 26px;
-    width: auto;
-    display:block;
-    filter: drop-shadow(0 0 12px rgba(255,255,255,0.18));
-  }
+    .stng-form{
+      max-width: 520px;
+      margin: 40px auto;
+      padding: 26px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
 
-  .stng-form h2{
-    margin: 0;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 900;
-    font-size: 18px;
-  }
+    @media (max-width: 520px){
+      body{ padding: 14px; }
+      .stng-form{
+        margin: 18px auto;
+        padding: 18px;
+        border-radius: 16px;
+      }
+    }
 
-  .form-intro{
-    margin: 0;
-    color: rgba(255,255,255,0.78);
-    font-size: 14px;
-    line-height: 1.6;
-    font-weight: 600;
-    max-width: 50ch;
-  }
+    .form-header{
+      display:flex;
+      flex-direction: column;
+      align-items:center;
+      gap: 10px;
+      margin-bottom: 18px;
+      text-align:center;
+    }
 
-  .form-group{
-    margin-bottom: 16px;
-    display: flex;
-    flex-direction: column;
-  }
+    .form-logo{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.03);
+      transition: 180ms ease;
+    }
+    .form-logo:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.22);
+      box-shadow: 0 0 26px rgba(0,240,255,0.18);
+    }
+    .form-logo img{
+      height: 26px;
+      width: auto;
+      display:block;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.18));
+    }
 
-  .form-group label{
-    font-size: 14px;
-    margin-bottom: 6px;
-    opacity: 0.9;
-    font-weight: 800;
-  }
+    .stng-form h2{
+      margin: 0;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 900;
+      font-size: 18px;
+    }
 
-  .form-group input,
-  .form-group select,
-  .form-group textarea{
-    width: 100%;
-    padding: 12px 12px;
-    border-radius: 12px;
-    border: 1px solid var(--fieldLine);
-    background: var(--fieldBg);
-    color: rgba(255,255,255,0.96);
-    font-size: 16px; /* iOS zoom fix */
-    font-family: inherit;
-    outline: none;
-    transition: 220ms ease;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
-  }
+    .form-intro{
+      margin: 0;
+      color: rgba(255,255,255,0.78);
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 600;
+      max-width: 50ch;
+    }
 
-  .form-group input::placeholder,
-  .form-group textarea::placeholder{
-    color: rgba(255,255,255,0.55);
-  }
+    .form-group{
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+    }
 
-  .form-group input:hover,
-  .form-group select:hover,
-  .form-group textarea:hover{
-    border-color: var(--fieldLineHover);
-    background:
-      linear-gradient(90deg, rgba(0,240,255,0.16), rgba(0,255,153,0.16)),
-      var(--fieldBgHover);
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.08) inset,
-      0 0 18px var(--glowA),
-      0 0 28px var(--glowB);
-  }
+    .form-group label{
+      font-size: 14px;
+      margin-bottom: 6px;
+      opacity: 0.9;
+      font-weight: 800;
+    }
 
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus{
-    border-color: rgba(0,240,255,0.95);
-    background:
-      linear-gradient(90deg, rgba(0,240,255,0.18), rgba(0,255,153,0.18)),
-      rgba(255,255,255,0.10);
-    box-shadow:
-      0 0 0 3px rgba(0,240,255,0.22),
-      0 0 22px rgba(0,240,255,0.35),
-      0 0 36px rgba(0,255,153,0.25);
-  }
+    .form-group input,
+    .form-group select,
+    .form-group textarea{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--fieldLine);
+      background: var(--fieldBg);
+      color: rgba(255,255,255,0.96);
+      font-size: 16px; /* iOS zoom fix */
+      font-family: inherit;
+      outline: none;
+      transition: 220ms ease;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+    }
 
-  .form-group select{
-    cursor: pointer;
-    appearance: none;
-    padding-right: 42px;
-    background-image:
-      linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 7l4.5 5 4.5-5'/%3E%3C/svg%3E");
-    background-repeat: no-repeat, no-repeat;
-    background-position: left center, right 14px center;
-    background-size: 100% 100%, 14px;
-  }
-  .form-group select option{
-    background: #0b0f1a;
-    color: #ffffff;
-  }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder{
+      color: rgba(255,255,255,0.55);
+    }
 
-  .form-check{
-    display:flex;
-    align-items:flex-start;
-    gap: 12px;
-    margin: 12px 0;
-    padding: 12px 12px;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.03);
-    transition: 220ms ease;
-  }
-  .form-check:hover{
-    border-color: rgba(255,255,255,0.28);
-    background:
-      linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
-      rgba(255,255,255,0.04);
-    box-shadow:
-      0 0 18px rgba(0,240,255,0.25),
-      0 0 28px rgba(0,255,153,0.18);
-  }
-  .form-check label{
-    margin: 0;
-    line-height: 1.35;
-    font-size: 14px;
-    font-weight: 650;
-    color: rgba(255,255,255,0.88);
-    cursor: pointer;
-  }
+    .form-group input:hover,
+    .form-group select:hover,
+    .form-group textarea:hover{
+      border-color: var(--fieldLineHover);
+      background:
+        linear-gradient(90deg, rgba(0,240,255,0.16), rgba(0,255,153,0.16)),
+        var(--fieldBgHover);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08) inset,
+        0 0 18px var(--glowA),
+        0 0 28px var(--glowB);
+    }
 
-  .form-check input[type="checkbox"]{
-    appearance: none;
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    margin: 2px 0 0;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.30);
-    background: rgba(255,255,255,0.06);
-    display:grid;
-    place-items:center;
-    cursor:pointer;
-    flex: 0 0 auto;
-    transition: 220ms ease;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
-  }
-  .form-check input[type="checkbox"]::after{
-    content:"";
-    width: 10px;
-    height: 10px;
-    border-radius: 3px;
-    transform: scale(0);
-    transition: 160ms ease;
-    background: linear-gradient(90deg, #00f0ff, #00ff99);
-    box-shadow:
-      0 0 14px rgba(0,240,255,0.45),
-      0 0 22px rgba(0,255,153,0.30);
-  }
-  .form-check input[type="checkbox"]:checked{
-    border-color: rgba(0,240,255,0.85);
-    background: rgba(0,240,255,0.12);
-    box-shadow:
-      0 0 0 3px rgba(0,240,255,0.18),
-      0 0 20px rgba(0,240,255,0.30),
-      0 0 30px rgba(0,255,153,0.20);
-  }
-  .form-check input[type="checkbox"]:checked::after{
-    transform: scale(1);
-  }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus{
+      border-color: rgba(0,240,255,0.95);
+      background:
+        linear-gradient(90deg, rgba(0,240,255,0.18), rgba(0,255,153,0.18)),
+        rgba(255,255,255,0.10);
+      box-shadow:
+        0 0 0 3px rgba(0,240,255,0.22),
+        0 0 22px rgba(0,240,255,0.35),
+        0 0 36px rgba(0,255,153,0.25);
+    }
 
-  button{
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 900;
-    cursor: pointer;
-    background: linear-gradient(90deg, #00f0ff, #00ff99);
-    color: #000;
-    transition: 0.3s ease;
-    min-height: 46px;
-  }
-  button:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0,255,200,0.4);
-  }
-  button:disabled{
-    opacity: 0.75;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
+    .form-group select{
+      cursor: pointer;
+      appearance: none;
+      padding-right: 42px;
+      background-image:
+        linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 7l4.5 5 4.5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat, no-repeat;
+      background-position: left center, right 14px center;
+      background-size: 100% 100%, 14px;
+    }
+    .form-group select option{
+      background: #0b0f1a;
+      color: #ffffff;
+    }
 
-  .form-legal{
-    font-size: 11px;
-    opacity: 0.65;
-    margin-top: 14px;
-    line-height: 1.45;
-  }
+    .form-check{
+      display:flex;
+      align-items:flex-start;
+      gap: 12px;
+      margin: 12px 0;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.03);
+      transition: 220ms ease;
+    }
+    .form-check:hover{
+      border-color: rgba(255,255,255,0.28);
+      background:
+        linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
+        rgba(255,255,255,0.04);
+      box-shadow:
+        0 0 18px rgba(0,240,255,0.25),
+        0 0 28px rgba(0,255,153,0.18);
+    }
+    .form-check label{
+      margin: 0;
+      line-height: 1.35;
+      font-size: 14px;
+      font-weight: 650;
+      color: rgba(255,255,255,0.88);
+      cursor: pointer;
+    }
 
-  .form-links{
-    margin-top: 10px;
-    display:flex;
-    justify-content:center;
-  }
-  .form-links a{
-    font-size: 12px;
-    color: rgba(255,255,255,0.75);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    transition: 160ms ease;
-  }
-  .form-links a:hover{
-    color: rgba(255,255,255,0.95);
-  }
+    .form-check input[type="checkbox"]{
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      margin: 2px 0 0;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.30);
+      background: rgba(255,255,255,0.06);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      flex: 0 0 auto;
+      transition: 220ms ease;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+    }
+    .form-check input[type="checkbox"]::after{
+      content:"";
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      transform: scale(0);
+      transition: 160ms ease;
+      background: linear-gradient(90deg, #00f0ff, #00ff99);
+      box-shadow:
+        0 0 14px rgba(0,240,255,0.45),
+        0 0 22px rgba(0,255,153,0.30);
+    }
+    .form-check input[type="checkbox"]:checked{
+      border-color: rgba(0,240,255,0.85);
+      background: rgba(0,240,255,0.12);
+      box-shadow:
+        0 0 0 3px rgba(0,240,255,0.18),
+        0 0 20px rgba(0,240,255,0.30),
+        0 0 30px rgba(0,255,153,0.20);
+    }
+    .form-check input[type="checkbox"]:checked::after{
+      transform: scale(1);
+    }
 
-  /* ✅ tiny status text */
-  .form-status{
-    margin-top: 10px;
-    font-size: 13px;
-    line-height: 1.5;
-    font-weight: 650;
-    color: rgba(255,255,255,0.82);
-    display:none;
-  }
-  .form-status.show{ display:block; }
-</style>
+    button{
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      background: linear-gradient(90deg, #00f0ff, #00ff99);
+      color: #000;
+      transition: 0.3s ease;
+      min-height: 46px;
+    }
+    button:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,255,200,0.4);
+    }
+    button:disabled{
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .form-legal{
+      font-size: 11px;
+      opacity: 0.65;
+      margin-top: 14px;
+      line-height: 1.45;
+    }
+
+    .form-links{
+      margin-top: 10px;
+      display:flex;
+      justify-content:center;
+    }
+    .form-links a{
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: 160ms ease;
+    }
+    .form-links a:hover{
+      color: rgba(255,255,255,0.95);
+    }
+
+    /* ✅ tiny status text */
+    .form-status{
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 650;
+      color: rgba(255,255,255,0.82);
+      display:none;
+    }
+    .form-status.show{ display:block; }
+
+    /* ===========================
+       ✅ AGE + MARKETING GATE (FORMULAR)
+       =========================== */
+    .agegate{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 14px;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 100%;
+      min-height: 100vh;
+    }
+    @supports (height: 100dvh){ .agegate{ min-height: 100dvh; } }
+    @supports (height: 100svh){ .agegate{ min-height: 100svh; } }
+    .agegate.show{ display:flex; }
+
+    .agegate-card{
+      width: min(680px, 100%);
+      max-width: 680px;
+      margin: 0 auto;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      box-shadow: 0 20px 70px rgba(0,0,0,0.65);
+      overflow:hidden;
+      position: relative;
+      padding: 18px;
+    }
+    .agegate-card::before{
+      content:"";
+      position:absolute;
+      inset:-60% -40%;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.14), transparent 55%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .agegate-inner{ position: relative; }
+
+    .agegate-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .agegate-title{
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .agegate-sub{
+      margin: 0 0 14px;
+      color: rgba(255,255,255,0.78);
+      font-size: 16px;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+    .warning{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.22);
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.78);
+      margin: 14px 0 16px;
+      font-weight: 600;
+    }
+    .warning strong{ color: rgba(255,255,255,0.92); }
+
+    .agegate-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    /* Gate buttons (separate from form button styles) */
+    .agegate .btn{
+      display:inline-flex;
+      align-items:center; justify-content:center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.92);
+      font-weight: 900;
+      font-size: 14px;
+      transition: 160ms ease;
+      cursor: pointer;
+      user-select:none;
+      font-family: inherit;
+      width: auto;
+      min-height: 46px;
+    }
+    .agegate .btn:hover{
+      background: rgba(255,255,255,0.07);
+      transform: translateY(-1px);
+    }
+    .agegate .btn.primary{
+      border-color: rgba(255,255,255,0.22);
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+    }
+    .agegate .btn.danger{
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.82);
+    }
+    .agegate .btn.danger:hover{
+      background: rgba(255,255,255,0.05);
+    }
+
+    .blocked{
+      display:none;
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+      padding: 12px 14px;
+      color: rgba(255,255,255,0.82);
+      font-size: 14px;
+      line-height: 1.7;
+      font-weight: 650;
+    }
+    .blocked.show{ display:block; }
+
+    .agegate-foot{
+      margin-top: 10px;
+      color: rgba(255,255,255,0.55);
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 650;
+    }
+
+    @media (max-width: 420px){
+      .agegate{ padding: 10px; }
+      .agegate-card{
+        padding: 14px;
+        border-radius: 18px;
+      }
+      .agegate-title{ font-size: 16px; }
+      .agegate-actions{ gap: 8px; }
+      .agegate-actions .btn{
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
+
+<!-- ✅ AGE + MARKETING GATE (shows only if not already confirmed on index.html) -->
+<div class="agegate" id="agegate" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
+  <div class="agegate-card">
+    <div class="agegate-inner">
+      <div class="agegate-top">
+        <img src="sting-logo-white.png" alt="STNG Logo" style="height:24px; width:auto;">
+        <div class="agegate-title" id="ageTitle">18+ Check</div>
+      </div>
+
+      <p class="agegate-sub" id="ageText">
+        Hej hej! Kurz bevor’s losgeht: Wir müssen checken, ob du schon <strong>über 18</strong> bist.
+      </p>
+
+      <div class="warning">
+        <strong>Offizielle Warnung (AT):</strong> Dieses Produkt enthält Nikotin, einen Stoff, der sehr stark abhängig macht.
+      </div>
+
+      <p class="agegate-sub" style="margin-top:10px;" id="mkText">
+        Optional: Darf STNG Marketing- & Tracking-Cookies (Meta Pixel) verwenden?
+      </p>
+
+      <div class="agegate-actions">
+        <button class="btn primary" id="btnYesMk" type="button">Ja, 18+ & Marketing akzeptieren</button>
+        <button class="btn" id="btnYesNoMk" type="button">Ja, 18+ ohne Marketing</button>
+        <button class="btn danger" id="btnNo" type="button">Nein, ich komme wieder wenn ich volljährig bin</button>
+      </div>
+
+      <div class="blocked" id="blockedMsg">
+        Alles klar — dann bitte später wiederkommen. 👋<br>
+        Du kannst diese Seite ohne Bestätigung nicht nutzen.
+      </div>
+
+      <div class="agegate-foot">
+        Hinweis: Deine Auswahl wird im Browser gespeichert, damit du nicht jedes Mal gefragt wirst.
+      </div>
+    </div>
+  </div>
+</div>
 
 <form id="stngForm" class="stng-form" novalidate>
   <div class="form-header">
@@ -388,7 +585,6 @@
 <script>
   /* ===========================
      ✅ META PIXEL (DSGVO: only after consent)
-     - Reads consent from index agegate: stng_marketing_ok_v1
      =========================== */
   function loadMetaPixel() {
     if (window.metaPixelLoaded) return;
@@ -413,6 +609,73 @@
   }
 
   /* ===========================
+     ✅ AGE GATE LOGIC (+ Marketing Consent)
+     - uses same keys as index.html
+     =========================== */
+  const KEY_AGE = "stng_age_ok_v1";
+  const KEY_MK  = "stng_marketing_ok_v1";
+
+  const agegate = document.getElementById("agegate");
+  const btnYesMk = document.getElementById("btnYesMk");
+  const btnYesNoMk = document.getElementById("btnYesNoMk");
+  const btnNo = document.getElementById("btnNo");
+  const blockedMsg = document.getElementById("blockedMsg");
+
+  function openGate(){
+    agegate.classList.add("show");
+    document.body.classList.add("modal-open");
+  }
+  function closeGate(){
+    agegate.classList.remove("show");
+    document.body.classList.remove("modal-open");
+  }
+
+  // show if age not confirmed OR marketing choice not made yet
+  const savedAge = localStorage.getItem(KEY_AGE);
+  const savedMk  = localStorage.getItem(KEY_MK);
+  if (savedAge !== "yes" || (savedMk !== "yes" && savedMk !== "no")) {
+    openGate();
+  }
+
+  // ✅ 18+ & marketing
+  btnYesMk.addEventListener("click", () => {
+    localStorage.setItem(KEY_AGE, "yes");
+    localStorage.setItem(KEY_MK, "yes");
+    loadMetaPixel();
+    closeGate();
+  });
+
+  // ✅ 18+ without marketing
+  btnYesNoMk.addEventListener("click", () => {
+    localStorage.setItem(KEY_AGE, "yes");
+    localStorage.setItem(KEY_MK, "no");
+    closeGate();
+  });
+
+  // underage / block
+  btnNo.addEventListener("click", () => {
+    localStorage.removeItem(KEY_AGE);
+    blockedMsg.classList.add("show");
+    btnYesMk.disabled = true;
+    btnYesNoMk.disabled = true;
+    btnNo.disabled = true;
+
+    document.addEventListener("click", (e) => {
+      const t = e.target.closest("a, button");
+      if (!t) return;
+      e.preventDefault();
+      e.stopPropagation();
+    }, true);
+  });
+
+  // block ESC when gate open
+  document.addEventListener("keydown", (e) => {
+    if (agegate.classList.contains("show") && e.key === "Escape") {
+      e.preventDefault();
+    }
+  });
+
+  /* ===========================
      ✅ ROBUST LEAD TRACKING (no thank-you page)
      - Ensures pixel is requested
      - Retries until fbq is ready
@@ -420,7 +683,7 @@
      =========================== */
   function trackLeadSafe(){
     try{
-      if (localStorage.getItem('stng_marketing_ok_v1') !== 'yes') return;
+      if (localStorage.getItem(KEY_MK) !== 'yes') return;
 
       // prevent double fire within 30 minutes
       const k = "stng_lead_fired_ts";
@@ -465,6 +728,13 @@
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    // hard block if age not confirmed globally
+    if (localStorage.getItem(KEY_AGE) !== "yes") {
+      openGate();
+      setStatus("Bitte zuerst 18+ bestätigen.", false);
+      return;
+    }
 
     // Basic client validation
     const name = document.getElementById("name").value.trim();
