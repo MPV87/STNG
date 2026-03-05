@@ -1,303 +1,306 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>STNG Aktion</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STNG Aktion</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<style>
-  :root{
-    --glowA: rgba(0, 240, 255, 0.55);
-    --glowB: rgba(0, 255, 153, 0.40);
-    --fieldBg: rgba(255,255,255,0.08);
-    --fieldBgHover: rgba(255,255,255,0.10);
-    --fieldLine: rgba(255,255,255,0.20);
-    --fieldLineHover: rgba(255,255,255,0.34);
-  }
-
-  body{
-    margin: 0;
-    background: #0b0f1a;
-    padding: 20px;
-    font-family: "Montserrat", Arial, sans-serif;
-    color:#fff;
-  }
-
-  .stng-form{
-    max-width: 520px;
-    margin: 40px auto;
-    padding: 26px;
-    border-radius: 18px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-    backdrop-filter: blur(10px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-  }
-
-  @media (max-width: 520px){
-    body{ padding: 14px; }
-    .stng-form{
-      margin: 18px auto;
-      padding: 18px;
-      border-radius: 16px;
+  <style>
+    :root{
+      --glowA: rgba(0, 240, 255, 0.55);
+      --glowB: rgba(0, 255, 153, 0.40);
+      --fieldBg: rgba(255,255,255,0.08);
+      --fieldBgHover: rgba(255,255,255,0.10);
+      --fieldLine: rgba(255,255,255,0.20);
+      --fieldLineHover: rgba(255,255,255,0.34);
     }
-  }
 
-  .form-header{
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    gap: 10px;
-    margin-bottom: 18px;
-    text-align:center;
-  }
+    body{
+      margin: 0;
+      background: #0b0f1a;
+      padding: 20px;
+      font-family: "Montserrat", Arial, sans-serif;
+      color:#fff;
+    }
 
-  .form-logo{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding: 8px 12px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.03);
-    transition: 180ms ease;
-  }
-  .form-logo:hover{
-    transform: translateY(-1px);
-    border-color: rgba(255,255,255,0.22);
-    box-shadow: 0 0 26px rgba(0,240,255,0.18);
-  }
-  .form-logo img{
-    height: 26px;
-    width: auto;
-    display:block;
-    filter: drop-shadow(0 0 12px rgba(255,255,255,0.18));
-  }
+    .stng-form{
+      max-width: 520px;
+      margin: 40px auto;
+      padding: 26px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
 
-  .stng-form h2{
-    margin: 0;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 900;
-    font-size: 18px;
-  }
+    @media (max-width: 520px){
+      body{ padding: 14px; }
+      .stng-form{
+        margin: 18px auto;
+        padding: 18px;
+        border-radius: 16px;
+      }
+    }
 
-  .form-intro{
-    margin: 0;
-    color: rgba(255,255,255,0.78);
-    font-size: 14px;
-    line-height: 1.6;
-    font-weight: 600;
-    max-width: 50ch;
-  }
+    .form-header{
+      display:flex;
+      flex-direction: column;
+      align-items:center;
+      gap: 10px;
+      margin-bottom: 18px;
+      text-align:center;
+    }
 
-  .form-group{
-    margin-bottom: 16px;
-    display: flex;
-    flex-direction: column;
-  }
+    .form-logo{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.03);
+      transition: 180ms ease;
+    }
+    .form-logo:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.22);
+      box-shadow: 0 0 26px rgba(0,240,255,0.18);
+    }
+    .form-logo img{
+      height: 26px;
+      width: auto;
+      display:block;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.18));
+    }
 
-  .form-group label{
-    font-size: 14px;
-    margin-bottom: 6px;
-    opacity: 0.9;
-    font-weight: 800;
-  }
+    .stng-form h2{
+      margin: 0;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 900;
+      font-size: 18px;
+    }
 
-  .form-group input,
-  .form-group select,
-  .form-group textarea{
-    width: 100%;
-    padding: 12px 12px;
-    border-radius: 12px;
-    border: 1px solid var(--fieldLine);
-    background: var(--fieldBg);
-    color: rgba(255,255,255,0.96);
-    font-size: 16px; /* iOS zoom fix */
-    font-family: inherit;
-    outline: none;
-    transition: 220ms ease;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
-  }
+    .form-intro{
+      margin: 0;
+      color: rgba(255,255,255,0.78);
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 600;
+      max-width: 50ch;
+    }
 
-  .form-group input::placeholder,
-  .form-group textarea::placeholder{
-    color: rgba(255,255,255,0.55);
-  }
+    .form-group{
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+    }
 
-  .form-group input:hover,
-  .form-group select:hover,
-  .form-group textarea:hover{
-    border-color: var(--fieldLineHover);
-    background:
-      linear-gradient(90deg, rgba(0,240,255,0.16), rgba(0,255,153,0.16)),
-      var(--fieldBgHover);
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.08) inset,
-      0 0 18px var(--glowA),
-      0 0 28px var(--glowB);
-  }
+    .form-group label{
+      font-size: 14px;
+      margin-bottom: 6px;
+      opacity: 0.9;
+      font-weight: 800;
+    }
 
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus{
-    border-color: rgba(0,240,255,0.95);
-    background:
-      linear-gradient(90deg, rgba(0,240,255,0.18), rgba(0,255,153,0.18)),
-      rgba(255,255,255,0.10);
-    box-shadow:
-      0 0 0 3px rgba(0,240,255,0.22),
-      0 0 22px rgba(0,240,255,0.35),
-      0 0 36px rgba(0,255,153,0.25);
-  }
+    .form-group input,
+    .form-group select,
+    .form-group textarea{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--fieldLine);
+      background: var(--fieldBg);
+      color: rgba(255,255,255,0.96);
+      font-size: 16px; /* iOS zoom fix */
+      font-family: inherit;
+      outline: none;
+      transition: 220ms ease;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+    }
 
-  .form-group select{
-    cursor: pointer;
-    appearance: none;
-    padding-right: 42px;
-    background-image:
-      linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 7l4.5 5 4.5-5'/%3E%3C/svg%3E");
-    background-repeat: no-repeat, no-repeat;
-    background-position: left center, right 14px center;
-    background-size: 100% 100%, 14px;
-  }
-  .form-group select option{
-    background: #0b0f1a;
-    color: #ffffff;
-  }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder{
+      color: rgba(255,255,255,0.55);
+    }
 
-  .form-check{
-    display:flex;
-    align-items:flex-start;
-    gap: 12px;
-    margin: 12px 0;
-    padding: 12px 12px;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.03);
-    transition: 220ms ease;
-  }
-  .form-check:hover{
-    border-color: rgba(255,255,255,0.28);
-    background:
-      linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
-      rgba(255,255,255,0.04);
-    box-shadow:
-      0 0 18px rgba(0,240,255,0.25),
-      0 0 28px rgba(0,255,153,0.18);
-  }
-  .form-check label{
-    margin: 0;
-    line-height: 1.35;
-    font-size: 14px;
-    font-weight: 650;
-    color: rgba(255,255,255,0.88);
-    cursor: pointer;
-  }
+    .form-group input:hover,
+    .form-group select:hover,
+    .form-group textarea:hover{
+      border-color: var(--fieldLineHover);
+      background:
+        linear-gradient(90deg, rgba(0,240,255,0.16), rgba(0,255,153,0.16)),
+        var(--fieldBgHover);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08) inset,
+        0 0 18px var(--glowA),
+        0 0 28px var(--glowB);
+    }
 
-  .form-check input[type="checkbox"]{
-    appearance: none;
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    margin: 2px 0 0;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.30);
-    background: rgba(255,255,255,0.06);
-    display:grid;
-    place-items:center;
-    cursor:pointer;
-    flex: 0 0 auto;
-    transition: 220ms ease;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
-  }
-  .form-check input[type="checkbox"]::after{
-    content:"";
-    width: 10px;
-    height: 10px;
-    border-radius: 3px;
-    transform: scale(0);
-    transition: 160ms ease;
-    background: linear-gradient(90deg, #00f0ff, #00ff99);
-    box-shadow:
-      0 0 14px rgba(0,240,255,0.45),
-      0 0 22px rgba(0,255,153,0.30);
-  }
-  .form-check input[type="checkbox"]:checked{
-    border-color: rgba(0,240,255,0.85);
-    background: rgba(0,240,255,0.12);
-    box-shadow:
-      0 0 0 3px rgba(0,240,255,0.18),
-      0 0 20px rgba(0,240,255,0.30),
-      0 0 30px rgba(0,255,153,0.20);
-  }
-  .form-check input[type="checkbox"]:checked::after{
-    transform: scale(1);
-  }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus{
+      border-color: rgba(0,240,255,0.95);
+      background:
+        linear-gradient(90deg, rgba(0,240,255,0.18), rgba(0,255,153,0.18)),
+        rgba(255,255,255,0.10);
+      box-shadow:
+        0 0 0 3px rgba(0,240,255,0.22),
+        0 0 22px rgba(0,240,255,0.35),
+        0 0 36px rgba(0,255,153,0.25);
+    }
 
-  button{
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 900;
-    cursor: pointer;
-    background: linear-gradient(90deg, #00f0ff, #00ff99);
-    color: #000;
-    transition: 0.3s ease;
-    min-height: 46px;
-  }
-  button:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0,255,200,0.4);
-  }
-  button:disabled{
-    opacity: 0.75;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
+    .form-group select{
+      cursor: pointer;
+      appearance: none;
+      padding-right: 42px;
+      background-image:
+        linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 7l4.5 5 4.5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat, no-repeat;
+      background-position: left center, right 14px center;
+      background-size: 100% 100%, 14px;
+    }
+    .form-group select option{
+      background: #0b0f1a;
+      color: #ffffff;
+    }
 
-  .form-legal{
-    font-size: 11px;
-    opacity: 0.65;
-    margin-top: 14px;
-    line-height: 1.45;
-  }
+    .form-check{
+      display:flex;
+      align-items:flex-start;
+      gap: 12px;
+      margin: 12px 0;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.03);
+      transition: 220ms ease;
+    }
+    .form-check:hover{
+      border-color: rgba(255,255,255,0.28);
+      background:
+        linear-gradient(90deg, rgba(0,240,255,0.10), rgba(0,255,153,0.10)),
+        rgba(255,255,255,0.04);
+      box-shadow:
+        0 0 18px rgba(0,240,255,0.25),
+        0 0 28px rgba(0,255,153,0.18);
+    }
+    .form-check label{
+      margin: 0;
+      line-height: 1.35;
+      font-size: 14px;
+      font-weight: 650;
+      color: rgba(255,255,255,0.88);
+      cursor: pointer;
+    }
 
-  .form-links{
-    margin-top: 10px;
-    display:flex;
-    justify-content:center;
-  }
-  .form-links a{
-    font-size: 12px;
-    color: rgba(255,255,255,0.75);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    transition: 160ms ease;
-  }
-  .form-links a:hover{
-    color: rgba(255,255,255,0.95);
-  }
+    .form-check input[type="checkbox"]{
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      margin: 2px 0 0;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.30);
+      background: rgba(255,255,255,0.06);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      flex: 0 0 auto;
+      transition: 220ms ease;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+    }
+    .form-check input[type="checkbox"]::after{
+      content:"";
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      transform: scale(0);
+      transition: 160ms ease;
+      background: linear-gradient(90deg, #00f0ff, #00ff99);
+      box-shadow:
+        0 0 14px rgba(0,240,255,0.45),
+        0 0 22px rgba(0,255,153,0.30);
+    }
+    .form-check input[type="checkbox"]:checked{
+      border-color: rgba(0,240,255,0.85);
+      background: rgba(0,240,255,0.12);
+      box-shadow:
+        0 0 0 3px rgba(0,240,255,0.18),
+        0 0 20px rgba(0,240,255,0.30),
+        0 0 30px rgba(0,255,153,0.20);
+    }
+    .form-check input[type="checkbox"]:checked::after{
+      transform: scale(1);
+    }
 
-  /* ✅ tiny status text */
-  .form-status{
-    margin-top: 10px;
-    font-size: 13px;
-    line-height: 1.5;
-    font-weight: 650;
-    color: rgba(255,255,255,0.82);
-    display:none;
-  }
-  .form-status.show{ display:block; }
-</style>
+    button{
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      background: linear-gradient(90deg, #00f0ff, #00ff99);
+      color: #000;
+      transition: 0.3s ease;
+      min-height: 46px;
+    }
+    button:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,255,200,0.4);
+    }
+    button:disabled{
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .form-legal{
+      font-size: 11px;
+      opacity: 0.65;
+      margin-top: 14px;
+      line-height: 1.45;
+    }
+
+    .form-links{
+      margin-top: 10px;
+      display:flex;
+      justify-content:center;
+    }
+    .form-links a{
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: 160ms ease;
+    }
+    .form-links a:hover{
+      color: rgba(255,255,255,0.95);
+    }
+
+    /* ✅ tiny status text */
+    .form-status{
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 650;
+      color: rgba(255,255,255,0.82);
+      display:none;
+    }
+    .form-status.show{ display:block; }
+  </style>
+
+  <!-- ✅ LEAD EVENT SNIPPET (to be used after submit) -->
+  <!-- NOTE: We DO NOT place fbq('track','Lead') here directly, because it must fire only after successful submit. -->
 </head>
 
 <body>
@@ -412,10 +415,12 @@
     loadMetaPixel();
   }
 
-  // OPTIONAL: track "Lead" after successful submit (only if pixel is loaded)
+  // ✅ Exact "Lead" snippet behavior, but safely inside JS (fires only after successful submit)
   function trackLeadSafe(){
     try{
-      if (typeof fbq === "function") fbq('track', 'Lead');
+      if (typeof fbq === "function") {
+        fbq('track', 'Lead');
+      }
     }catch(e){}
   }
 
@@ -483,7 +488,7 @@
         body: JSON.stringify(payload)
       });
 
-      // ✅ Meta Pixel conversion event (only if consented + pixel loaded)
+      // ✅ LEAD TRACKING (fires only if consented AND pixel loaded)
       trackLeadSafe();
 
       btn.textContent = "Danke! ✅";
