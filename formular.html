@@ -118,11 +118,12 @@
       border: 1px solid var(--fieldLine);
       background: var(--fieldBg);
       color: rgba(255,255,255,0.96);
-      font-size: 16px; /* iOS zoom fix */
+      font-size: 16px;
       font-family: inherit;
       outline: none;
       transition: 220ms ease;
       box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+      box-sizing: border-box;
     }
 
     .form-group input::placeholder,
@@ -170,6 +171,18 @@
     .form-group select option{
       background: #0b0f1a;
       color: #ffffff;
+    }
+
+    .form-row{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-row-zip{
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 12px;
     }
 
     .form-check{
@@ -288,7 +301,6 @@
       color: rgba(255,255,255,0.95);
     }
 
-    /* ✅ tiny status text */
     .form-status{
       margin-top: 10px;
       font-size: 13px;
@@ -299,9 +311,6 @@
     }
     .form-status.show{ display:block; }
 
-    /* ===========================
-       ✅ AGE + MARKETING GATE (FORMULAR)
-       =========================== */
     .agegate{
       position: fixed;
       inset: 0;
@@ -384,7 +393,6 @@
       margin-top: 6px;
     }
 
-    /* Gate buttons (separate from form button styles) */
     .agegate .btn{
       display:inline-flex;
       align-items:center; justify-content:center;
@@ -455,12 +463,18 @@
         justify-content: center;
       }
     }
+
+    @media (max-width: 520px){
+      .form-row,
+      .form-row-zip{
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-<!-- ✅ AGE + MARKETING GATE (shows only if not already confirmed on index.html) -->
 <div class="agegate" id="agegate" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
   <div class="agegate-card">
     <div class="agegate-inner">
@@ -513,7 +527,6 @@
     </p>
   </div>
 
-  <!-- ✅ Honeypot (unsichtbar) -->
   <div style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
     <label for="hp">Bitte dieses Feld leer lassen</label>
     <input type="text" id="hp" name="company" autocomplete="off" tabindex="-1">
@@ -548,14 +561,28 @@
     </select>
   </div>
 
-  <div class="form-group">
-    <label for="address">Adresse *</label>
-    <input type="text" id="address" name="Adresse" required placeholder="Straße Hausnummer" autocomplete="street-address">
+  <div class="form-row">
+    <div class="form-group">
+      <label for="street">Straße *</label>
+      <input type="text" id="street" name="Straße" required placeholder="Musterstraße" autocomplete="address-line1">
+    </div>
+
+    <div class="form-group">
+      <label for="houseNumber">Hausnummer *</label>
+      <input type="text" id="houseNumber" name="Hausnummer" required placeholder="12A" autocomplete="address-line2">
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="zip">PLZ / Ort *</label>
-    <input type="text" id="zip" name="PLZ / Ort" required placeholder="1010 Wien" autocomplete="postal-code">
+  <div class="form-row-zip">
+    <div class="form-group">
+      <label for="zip">PLZ *</label>
+      <input type="text" id="zip" name="PLZ" required placeholder="1010" autocomplete="postal-code" inputmode="numeric">
+    </div>
+
+    <div class="form-group">
+      <label for="city">Ort *</label>
+      <input type="text" id="city" name="Ort" required placeholder="Wien" autocomplete="address-level2">
+    </div>
   </div>
 
   <div class="form-check">
@@ -583,9 +610,6 @@
 </form>
 
 <script>
-  /* ===========================
-     ✅ META PIXEL (DSGVO: only after consent)
-     =========================== */
   function loadMetaPixel() {
     if (window.metaPixelLoaded) return;
     window.metaPixelLoaded = true;
@@ -603,15 +627,10 @@
     fbq('track', 'PageView');
   }
 
-  // If user already consented earlier → load pixel on this page too
   if (localStorage.getItem('stng_marketing_ok_v1') === 'yes') {
     loadMetaPixel();
   }
 
-  /* ===========================
-     ✅ AGE GATE LOGIC (+ Marketing Consent)
-     - uses same keys as index.html
-     =========================== */
   const KEY_AGE = "stng_age_ok_v1";
   const KEY_MK  = "stng_marketing_ok_v1";
 
@@ -630,14 +649,12 @@
     document.body.classList.remove("modal-open");
   }
 
-  // show if age not confirmed OR marketing choice not made yet
   const savedAge = localStorage.getItem(KEY_AGE);
   const savedMk  = localStorage.getItem(KEY_MK);
   if (savedAge !== "yes" || (savedMk !== "yes" && savedMk !== "no")) {
     openGate();
   }
 
-  // ✅ 18+ & marketing
   btnYesMk.addEventListener("click", () => {
     localStorage.setItem(KEY_AGE, "yes");
     localStorage.setItem(KEY_MK, "yes");
@@ -645,14 +662,12 @@
     closeGate();
   });
 
-  // ✅ 18+ without marketing
   btnYesNoMk.addEventListener("click", () => {
     localStorage.setItem(KEY_AGE, "yes");
     localStorage.setItem(KEY_MK, "no");
     closeGate();
   });
 
-  // underage / block
   btnNo.addEventListener("click", () => {
     localStorage.removeItem(KEY_AGE);
     blockedMsg.classList.add("show");
@@ -668,33 +683,24 @@
     }, true);
   });
 
-  // block ESC when gate open
   document.addEventListener("keydown", (e) => {
     if (agegate.classList.contains("show") && e.key === "Escape") {
       e.preventDefault();
     }
   });
 
-  /* ===========================
-     ✅ ROBUST LEAD TRACKING (no thank-you page)
-     - Ensures pixel is requested
-     - Retries until fbq is ready
-     - Prevents double firing for 30 minutes
-     =========================== */
   function trackLeadSafe(){
     try{
       if (localStorage.getItem(KEY_MK) !== 'yes') return;
 
-      // prevent double fire within 30 minutes
       const k = "stng_lead_fired_ts";
       const last = parseInt(localStorage.getItem(k) || "0", 10);
       if (Date.now() - last < 30 * 60 * 1000) return;
 
-      // ensure pixel is requested on this page
       if (!window.metaPixelLoaded) loadMetaPixel();
 
       let tries = 0;
-      const maxTries = 30; // ~3s
+      const maxTries = 30;
 
       const tick = () => {
         tries++;
@@ -717,7 +723,6 @@
   const btn = document.getElementById("submitBtn");
   const statusEl = document.getElementById("formStatus");
 
-  // Time-to-submit stamp (anti-bot)
   const startTs = Date.now();
 
   function setStatus(msg, ok=true){
@@ -729,28 +734,34 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // hard block if age not confirmed globally
     if (localStorage.getItem(KEY_AGE) !== "yes") {
       openGate();
       setStatus("Bitte zuerst 18+ bestätigen.", false);
       return;
     }
 
-    // Basic client validation
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const dose = document.getElementById("dose").value;
     const land = document.getElementById("country").value;
-    const adresse = document.getElementById("address").value.trim();
-    const plzort = document.getElementById("zip").value.trim();
+
+    const street = document.getElementById("street").value.trim();
+    const houseNumber = document.getElementById("houseNumber").value.trim();
+    const zip = document.getElementById("zip").value.trim();
+    const city = document.getElementById("city").value.trim();
+
+    const adresse = `${street} ${houseNumber}`.trim();
+    const plzort = `${zip} ${city}`.trim();
+
     const age = document.getElementById("age").checked;
     const privacy = document.getElementById("privacy").checked;
     const hp = document.getElementById("hp").value.trim();
 
-    if (!name || !email || !dose || !land || !adresse || !plzort) {
+    if (!name || !email || !dose || !land || !street || !houseNumber || !zip || !city) {
       setStatus("Bitte alle Pflichtfelder ausfüllen.", false);
       return;
     }
+
     if (!age || !privacy) {
       setStatus("Bitte bestätige 18+ und Datenschutz.", false);
       return;
@@ -775,7 +786,6 @@
     };
 
     try {
-      // no-cors = robust on GitHub Pages + Apps Script
       await fetch(ENDPOINT, {
         method: "POST",
         mode: "no-cors",
@@ -783,7 +793,6 @@
         body: JSON.stringify(payload)
       });
 
-      // ✅ LEAD TRACKING (fires only if consented + pixel loaded/ready)
       trackLeadSafe();
 
       btn.textContent = "Danke! ✅";
