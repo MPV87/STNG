@@ -580,6 +580,37 @@
     .faq-a a:hover{ opacity: 1; }
 
     /* ===========================
+       ✅ INSTAGRAM FEED SECTION
+       =========================== */
+    .ig-feed-section{ padding: 20px 0 70px; }
+    .ig-feed-title{
+      text-align:center;
+      font-size: clamp(22px, 3vw, 34px);
+      margin: 0 0 28px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+    .ig-feed-panel{
+      border-radius: var(--radius);
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      box-shadow: 0 25px 80px rgba(0,0,0,0.55);
+      overflow: hidden;
+      position: relative;
+      padding: 18px;
+    }
+    .ig-feed-panel::before{
+      content:"";
+      position:absolute;
+      inset:-60% -40%;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.12), transparent 55%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .ig-feed-panel .lightwidget-widget{ position: relative; }
+
+    /* ===========================
        ✅ FOOTER + Instagram Neon Glow (NEU)
        =========================== */
     footer{
@@ -1443,6 +1474,17 @@
       </div>
     </section>
 
+    <!-- ✅ INSTAGRAM FEED SECTION -->
+    <section class="ig-feed-section" id="instagram">
+      <div class="container">
+        <h2 class="ig-feed-title">STNG auf Instagram</h2>
+        <div class="ig-feed-panel">
+          <!-- LightWidget WIDGET -->
+          <iframe src="https://cdn.lightwidget.com/widgets/f68e1a01395154f08eb6e7dad1d45c89.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
+        </div>
+      </div>
+    </section>
+
     <footer id="kontakt">
       <div class="container foot">
         <div>© <span id="year"></span> STNG</div>
@@ -1465,6 +1507,8 @@
       </div>
     </footer>
   </main>
+
+  <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
